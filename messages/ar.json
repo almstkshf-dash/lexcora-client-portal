@@ -1,0 +1,83 @@
+{
+  "common": {
+    "welcome": "أهلاً وسهلاً",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "search": "بحث",
+    "close": "إغلاق"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "loginTitle": "مكتب محمد بني هاشم",
+    "loginButton": "تسجيل الدخول",
+    "loggingIn": "جاري تسجيل الدخول...",
+    "loginError": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+    "usernameRequired": "يرجى إدخال اسم المستخدم وكلمة المرور",
+    "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة",
+    "troubleLogging": "هل تواجه مشكلة في تسجيل الدخول؟",
+    "contactAdmin": "تواصل مع المسؤول للحصول على المساعدة."
+  },
+  "home": {
+    "title": "بوابة العميل",
+    "welcome": "مرحباً، {name}!",
+    "userInfo": "معلومات المستخدم",
+    "username": "اسم المستخدم",
+    "name": "الاسم",
+    "phone": "رقم الهاتف",
+    "status": "الحالة",
+    "quickLinks": "روابط سريعة",
+    "myCases": "قضاياي",
+    "myCasesDesc": "عرض قضاياك وحالتها",
+    "documents": "المستندات",
+    "documentsDesc": "الوصول إلى مستنداتك",
+    "requests": "الطلبات",
+    "requestsDesc": "إرسال ومتابعة طلباتك",
+    "messages": "الرسائل",
+    "messagesDesc": "تحقق من رسائلك",
+    "notAvailable": "غير متوفر"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "cases": "القضايا",
+    "documents": "المستندات",
+    "requests": "الطلبات",
+    "messages": "الرسائل",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات"
+  },
+  "documents": {
+    "title": "مستنداتي",
+    "description": "عرض والوصول إلى مستنداتك",
+    "noDocuments": "لا توجد مستندات",
+    "noDocumentsDesc": "ليس لديك أي مستندات حتى الآن.",
+    "statistics": "الإحصائيات",
+    "totalDocuments": "إجمالي المستندات"
+  },
+  "requests": {
+    "title": "طلباتي",
+    "description": "عرض وإنشاء طلباتك",
+    "noRequests": "لا توجد طلبات",
+    "noRequestsDesc": "ليس لديك أي طلبات حتى الآن. قم بإنشاء واحد للبدء.",
+    "createRequest": "إنشاء طلب جديد",
+    "requestType": "نوع الطلب",
+    "requestTitle": "تفاصيل الطلب",
+    "requestDetails": "تفاصيل الطلب",
+    "requestDate": "تاريخ الطلب",
+    "submit": "إرسال الطلب",
+    "statistics": "الإحصائيات",
+    "totalRequests": "إجمالي الطلبات",
+    "pendingRequests": "قيد المراجعة",
+    "approvedRequests": "موافق عليه",
+    "rejectedRequests": "مرفوض"
+  }
+}

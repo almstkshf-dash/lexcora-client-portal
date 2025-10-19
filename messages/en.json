@@ -1,0 +1,83 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "username": "Username",
+    "password": "Password",
+    "loginTitle": "Mohammad Bani Hashem Law Office",
+    "loginButton": "Login",
+    "loggingIn": "Logging in...",
+    "loginError": "Login failed. Please try again.",
+    "usernameRequired": "Please enter both username and password",
+    "invalidCredentials": "Invalid username or password",
+    "troubleLogging": "Having trouble logging in?",
+    "contactAdmin": "Contact your administrator for assistance."
+  },
+  "home": {
+    "title": "Client Portal",
+    "welcome": "Welcome, {name}!",
+    "userInfo": "User Information",
+    "username": "Username",
+    "name": "Name",
+    "phone": "Phone",
+    "status": "Status",
+    "quickLinks": "Quick Links",
+    "myCases": "My Cases",
+    "myCasesDesc": "View your cases and status",
+    "documents": "Documents",
+    "documentsDesc": "Access your documents",
+    "requests": "Requests",
+    "requestsDesc": "Submit and track your requests",
+    "messages": "Messages",
+    "messagesDesc": "Check your messages",
+    "notAvailable": "N/A"
+  },
+  "navigation": {
+    "home": "Home",
+    "cases": "Cases",
+    "documents": "Documents",
+    "requests": "Requests",
+    "messages": "Messages",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "documents": {
+    "title": "My Documents",
+    "description": "View and access your documents",
+    "noDocuments": "No Documents Found",
+    "noDocumentsDesc": "You don't have any documents yet.",
+    "statistics": "Statistics",
+    "totalDocuments": "Total Documents"
+  },
+  "requests": {
+    "title": "My Requests",
+    "description": "View and create your requests",
+    "noRequests": "No Requests Found",
+    "noRequestsDesc": "You don't have any requests yet. Create one to get started.",
+    "createRequest": "Create New Request",
+    "requestType": "Request Type",
+    "requestTitle": "Request Details",
+    "requestDetails": "Request Details",
+    "requestDate": "Request Date",
+    "submit": "Submit Request",
+    "statistics": "Statistics",
+    "totalRequests": "Total Requests",
+    "pendingRequests": "Pending",
+    "approvedRequests": "Approved",
+    "rejectedRequests": "Rejected"
+  }
+}
