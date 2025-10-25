@@ -89,7 +89,6 @@ export default function LoginPage() {
         setError(t('auth.invalidCredentials'));
       }
     } catch (err) {
-      console.error('Login error:', err);
       setError(t('auth.invalidCredentials'));
     }
   };
