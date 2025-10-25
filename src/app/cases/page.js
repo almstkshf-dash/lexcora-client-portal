@@ -5,8 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useLanguage } from '../../contexts/LanguageContext';
-import LanguageSwitcher from '../../components/LanguageSwitcher';
+import Header from '../../components/Header';
 import { getClientCases } from '../services/api/cases';
+import { ArrowLeft, FolderOpen, FileText, Hash, Loader2, User } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function CasesPage() {
   const { user, logout } = useAuth();
@@ -40,135 +44,132 @@ export default function CasesPage() {
     }
   };
 
-
-
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Navigation */}
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-6">
-              <button
-                onClick={() => router.push('/')}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                ← {t('navigation.home')}
-              </button>
-              <h1 className="text-xl font-bold text-gray-900">{t('home.title')}</h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <LanguageSwitcher />
-              <button
-                onClick={logout}
-                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
-              >
-                {t('auth.logout')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header title={t('cases.title')} showBackButton={true} />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">{t('home.myCases')}</h2>
-              <p className="text-gray-600 mt-1">{t('home.myCasesDesc')}</p>
+        <Card className="mb-6 border-0 shadow-lg">
+          <CardHeader>
+            <div className="flex justify-between items-start">
+              <div>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <FolderOpen className="w-6 h-6 text-blue-600" />
+                  {t('home.myCases')}
+                </CardTitle>
+                <CardDescription className="mt-2">
+                  {t('home.myCasesDesc')}
+                </CardDescription>
+              </div>
+              <div className="text-right bg-gray-50 p-3 rounded-lg">
+                <p className="text-xs text-gray-600 flex items-center gap-1 justify-end">
+                  <User className="w-3 h-3" />
+                  {t('home.username')}
+                </p>
+                <p className="font-semibold text-gray-900 mt-1">{user?.name || user?.username}</p>
+              </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-600">{t('home.username')}</p>
-              <p className="font-medium text-gray-900">{user?.name || user?.username}</p>
-            </div>
-          </div>
-        </div>
+          </CardHeader>
+        </Card>
 
         {/* Loading State */}
         {loading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="text-center">
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
-              <p className="mt-2 text-gray-600">{t('common.loading')}</p>
-            </div>
-          </div>
+          <Card className="border-0 shadow-lg">
+            <CardContent className="flex flex-col justify-center items-center py-12">
+              <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+              <p className="mt-4 text-gray-600">{t('common.loading')}</p>
+            </CardContent>
+          </Card>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-            {error}
-          </div>
+          <Alert variant="destructive" className="mb-6">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         )}
 
         {/* Cases List */}
         {!loading && !error && (
           <div className="space-y-4">
             {cases.length === 0 ? (
-              <div className="bg-white rounded-lg shadow p-12 text-center">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                <h3 className="mt-2 text-lg font-medium text-gray-900">
-                  {t('common.welcome') === 'Welcome' ? 'No Cases Found' : 'لا توجد قضايا'}
-                </h3>
-                <p className="mt-1 text-gray-500">
-                  {t('common.welcome') === 'Welcome' 
-                    ? 'You don\'t have any cases yet.' 
-                    : 'ليس لديك أي قضايا حتى الآن.'}
-                </p>
-              </div>
+              <Card className="border-0 shadow-lg">
+                <CardContent className="py-12 text-center">
+                  <div className="flex justify-center mb-4">
+                    <div className="p-4 bg-gray-100 rounded-full">
+                      <FolderOpen className="w-12 h-12 text-gray-400" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {isArabic ? 'لا توجد قضايا' : 'No Cases Found'}
+                  </h3>
+                  <p className="text-gray-500">
+                    {isArabic ? 'ليس لديك أي قضايا حتى الآن.' : 'You don\'t have any cases yet.'}
+                  </p>
+                </CardContent>
+              </Card>
             ) : (
               cases.map((caseItem) => (
-                <div
+                <Card
                   key={caseItem.id}
-                  className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6"
+                  className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                  onClick={() => router.push(`/cases/${caseItem.id}`)}
                 >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          {caseItem.topic || (isArabic ? 'قضية بدون عنوان' : 'Untitled Case')}
-                        </h3>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <p className="text-sm text-gray-600">
-                          <span className="font-medium">
-                            {isArabic ? 'رقم القضية:' : 'Case Number:'}
-                          </span>{' '}
-                          {caseItem.case_number || (isArabic ? 'غير متوفر' : 'N/A')}
-                        </p>
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
+                            <FileText className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                            {caseItem.topic || (isArabic ? 'قضية بدون عنوان' : 'Untitled Case')}
+                          </h3>
+                        </div>
                         
-                        <p className="text-sm text-gray-600">
-                          <span className="font-medium">
-                            {isArabic ? 'رقم الملف:' : 'File Number:'}
-                          </span>{' '}
-                          {caseItem.file_number || (isArabic ? 'غير متوفر' : 'N/A')}
-                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+                            <Hash className="w-4 h-4 text-gray-500" />
+                            <div>
+                              <p className="text-xs text-gray-500">
+                                {isArabic ? 'رقم القضية' : 'Case Number'}
+                              </p>
+                              <p className="text-sm font-semibold text-gray-900">
+                                {caseItem.case_number || (isArabic ? 'غير متوفر' : 'N/A')}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+                            <FileText className="w-4 h-4 text-gray-500" />
+                            <div>
+                              <p className="text-xs text-gray-500">
+                                {isArabic ? 'رقم الملف' : 'File Number'}
+                              </p>
+                              <p className="text-sm font-semibold text-gray-900">
+                                {caseItem.file_number || (isArabic ? 'غير متوفر' : 'N/A')}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
 
-                    <button
-                      onClick={() => router.push(`/cases/${caseItem.id}`)}
-                      className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-sm whitespace-nowrap"
-                    >
-                      {isArabic ? 'عرض التفاصيل' : 'View Details'}
-                    </button>
-                  </div>
-                </div>
+                      <Button
+                        variant="default"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/cases/${caseItem.id}`);
+                        }}
+                        className="shrink-0"
+                      >
+                        {isArabic ? 'عرض التفاصيل' : 'View Details'}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               ))
             )}
           </div>
@@ -176,19 +177,26 @@ export default function CasesPage() {
 
         {/* Statistics */}
         {!loading && cases.length > 0 && (
-          <div className="mt-6 bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {t('common.welcome') === 'Welcome' ? 'Statistics' : 'الإحصائيات'}
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-sm text-blue-600 font-medium">
-                  {t('common.welcome') === 'Welcome' ? 'Total Cases' : 'إجمالي القضايا'}
-                </p>
-                <p className="text-2xl font-bold text-blue-900">{cases.length}</p>
+          <Card className="mt-6 border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
+            <CardHeader>
+              <CardTitle className="text-lg">
+                {isArabic ? 'الإحصائيات' : 'Statistics'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <FolderOpen className="w-8 h-8 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 font-medium">
+                    {isArabic ? 'إجمالي القضايا' : 'Total Cases'}
+                  </p>
+                  <p className="text-3xl font-bold text-gray-900">{cases.length}</p>
+                </div>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         )}
       </main>
     </div>

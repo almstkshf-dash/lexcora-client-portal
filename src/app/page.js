@@ -2,95 +2,158 @@
 
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useLanguage } from '../contexts/LanguageContext';
+import Header from '../components/Header';
 import { useRouter } from 'next/navigation';
-import { FileText, FolderOpen, FileQuestion } from 'lucide-react';
+import { FileText, FolderOpen, FileQuestion, User, Phone, Mail, Shield } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
+  const { isArabic } = useLanguage();
   const router = useRouter();
 
+  const quickLinks = [
+    {
+      title: t('home.myCases'),
+      description: t('home.myCasesDesc'),
+      icon: FolderOpen,
+      route: '/cases',
+      color: 'blue'
+    },
+    {
+      title: t('home.documents'),
+      description: t('home.documentsDesc'),
+      icon: FileText,
+      route: '/documents',
+      color: 'green'
+    },
+    {
+      title: t('home.requests'),
+      description: t('home.requestsDesc'),
+      icon: FileQuestion,
+      route: '/requests',
+      color: 'purple'
+    }
+  ];
+
+  const getColorClasses = (color) => {
+    const colors = {
+      blue: 'text-blue-600 bg-blue-50 hover:bg-blue-100 border-blue-200',
+      green: 'text-green-600 bg-green-50 hover:bg-green-100 border-green-200',
+      purple: 'text-purple-600 bg-purple-50 hover:bg-purple-100 border-purple-200'
+    };
+    return colors[color] || colors.blue;
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">{t('home.title')}</h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <LanguageSwitcher />
-              <button
-                onClick={logout}
-                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
-              >
-                {t('auth.logout')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" dir={isArabic ? 'rtl' : 'ltr'}>
+      {/* Navigation */}
+      <Header title={t('home.title')} showBackButton={false} />
 
+      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            {t('home.welcome', { name: user?.name || user?.username })}
-          </h2>
-          
-          <div className="space-y-3">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-gray-600">{t('home.username')}:</p>
-                <p className="text-base font-medium text-gray-900">{user?.username}</p>
+        {/* Welcome Section */}
+        <Card className="mb-6 border-0 shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl">
+              {t('home.welcome', { name: user?.name || user?.username })}
+            </CardTitle>
+            <CardDescription>
+              {isArabic ? 'مرحباً بك في بوابة العملاء' : 'Welcome to the Client Portal'}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-blue-100">
+                  <User className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600">{t('home.username')}</p>
+                  <p className="text-sm font-semibold text-gray-900">{user?.username}</p>
+                </div>
               </div>
               
-              <div>
-                <p className="text-sm text-gray-600">{t('home.name')}:</p>
-                <p className="text-base font-medium text-gray-900">{user?.name || t('home.notAvailable')}</p>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-green-100">
+                  <User className="w-5 h-5 text-green-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600">{t('home.name')}</p>
+                  <p className="text-sm font-semibold text-gray-900">{user?.name || t('home.notAvailable')}</p>
+                </div>
               </div>
               
-              <div>
-                <p className="text-sm text-gray-600">{t('home.phone')}:</p>
-                <p className="text-base font-medium text-gray-900">{user?.phone || t('home.notAvailable')}</p>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-purple-100">
+                  <Phone className="w-5 h-5 text-purple-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600">{t('home.phone')}</p>
+                  <p className="text-sm font-semibold text-gray-900">{user?.phone || t('home.notAvailable')}</p>
+                </div>
               </div>
               
-              <div>
-                <p className="text-sm text-gray-600">{t('home.status')}:</p>
-                <p className={`text-base font-medium ${user?.status === 'active' ? 'text-green-600' : 'text-red-600'}`}>
-                  {user?.status}
-                </p>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="p-2 rounded-full bg-orange-100">
+                  <Shield className="w-5 h-5 text-orange-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600">{t('home.status')}</p>
+                  <p className={`text-sm font-semibold ${user?.status === 'active' ? 'text-green-600' : 'text-red-600'}`}>
+                    {user?.status || t('home.notAvailable')}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
-        <div className="mt-6 bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">
+        {/* Quick Links Section */}
+        <div>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
             {t('home.quickLinks')}
-          </h3>
-          <div className="grid grid-cols-3 gap-6">
-            <button
-              onClick={() => router.push('/cases')}
-              className="flex flex-col items-center justify-center p-8 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-lg transition-all cursor-pointer bg-white aspect-square"
-            >
-              <FolderOpen className="w-16 h-16 text-blue-600 mb-4" />
-              <h4 className="font-semibold text-gray-900 text-center">{t('home.myCases')}</h4>
-            </button>
-            <button
-              onClick={() => router.push('/documents')}
-              className="flex flex-col items-center justify-center p-8 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:shadow-lg transition-all cursor-pointer bg-white aspect-square"
-            >
-              <FileText className="w-16 h-16 text-green-600 mb-4" />
-              <h4 className="font-semibold text-gray-900 text-center">{t('home.documents')}</h4>
-            </button>
-            <button
-              onClick={() => router.push('/requests')}
-              className="flex flex-col items-center justify-center p-8 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:shadow-lg transition-all cursor-pointer bg-white aspect-square"
-            >
-              <FileQuestion className="w-16 h-16 text-purple-600 mb-4" />
-              <h4 className="font-semibold text-gray-900 text-center">{t('home.requests')}</h4>
-            </button>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {quickLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Card
+                  key={link.route}
+                  className={`cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 ${getColorClasses(link.color)}`}
+                  onClick={() => router.push(link.route)}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex flex-col items-center text-center space-y-4">
+                      <div className={`p-4 rounded-full ${getColorClasses(link.color)}`}>
+                        <Icon className="w-12 h-12" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-1">
+                          {link.title}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {link.description}
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        className="w-full mt-2"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(link.route);
+                        }}
+                      >
+                        {isArabic ? 'عرض' : 'View'}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </main>

@@ -18,6 +18,8 @@
     "logout": "تسجيل الخروج",
     "username": "اسم المستخدم",
     "password": "كلمة المرور",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "rememberMe": "تذكرني",
     "loginTitle": "مكتب محمد بني هاشم",
     "loginButton": "تسجيل الدخول",
     "loggingIn": "جاري تسجيل الدخول...",
@@ -28,7 +30,7 @@
     "contactAdmin": "تواصل مع المسؤول للحصول على المساعدة."
   },
   "home": {
-    "title": "بوابة العميل",
+    "title": "بوابة الموكل",
     "welcome": "مرحباً، {name}!",
     "userInfo": "معلومات المستخدم",
     "username": "اسم المستخدم",
@@ -36,7 +38,7 @@
     "phone": "رقم الهاتف",
     "status": "الحالة",
     "quickLinks": "روابط سريعة",
-    "myCases": "قضاياي",
+    "myCases": "القضايا",
     "myCasesDesc": "عرض قضاياك وحالتها",
     "documents": "المستندات",
     "documentsDesc": "الوصول إلى مستنداتك",
@@ -54,6 +56,9 @@
     "messages": "الرسائل",
     "profile": "الملف الشخصي",
     "settings": "الإعدادات"
+  },
+  "settings": {
+    "language": "اللغة"
   },
   "documents": {
     "title": "مستنداتي",

@@ -5,8 +5,13 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useLanguage } from '../../contexts/LanguageContext';
-import LanguageSwitcher from '../../components/LanguageSwitcher';
+import Header from '../../components/Header';
 import { getClientRequests, createClientRequest } from '../services/api/requests';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
+import { Button } from '../../components/ui/button';
+import { Alert, AlertDescription } from '../../components/ui/alert';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
+import { ArrowLeft, FileText, Clock, CheckCircle, XCircle, Loader2, Plus, Calendar, User } from 'lucide-react';
 
 export default function RequestsPage() {
   const { user, logout } = useAuth();
@@ -114,79 +119,60 @@ export default function RequestsPage() {
   };
 
   const getStatusBadge = (status) => {
-    // Status can be: 'approved', 'pending', 'rejected'
     if (status === 'approved') {
       return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-900 border border-gray-200">
+          <CheckCircle className="w-3.5 h-3.5" />
           {isArabic ? 'موافق عليه' : 'Approved'}
-        </span>
+        </div>
       );
     } else if (status === 'rejected') {
       return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-900 border border-gray-200">
+          <XCircle className="w-3.5 h-3.5" />
           {isArabic ? 'مرفوض' : 'Rejected'}
-        </span>
+        </div>
       );
     }
-    // Default: pending
     return (
-      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-100 text-gray-900 border border-gray-200">
+        <Clock className="w-3.5 h-3.5" />
         {isArabic ? 'قيد المراجعة' : 'Pending'}
-      </span>
+      </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Navigation */}
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-6">
-              <button
-                onClick={() => router.push('/')}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                ← {t('navigation.home')}
-              </button>
-              <h1 className="text-xl font-bold text-gray-900">{t('home.title')}</h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <LanguageSwitcher />
-              <button
-                onClick={logout}
-                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
-              >
-                {t('auth.logout')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header title={t('requests.title')} showBackButton={true} />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <div className="flex justify-between items-center">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">{t('requests.title')}</h2>
-              <p className="text-gray-600 mt-1">{t('requests.description')}</p>
+        <Card className="mb-6 border-gray-200">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <div>
+                <CardTitle className="text-2xl">{t('requests.title')}</CardTitle>
+                <CardDescription>{t('requests.description')}</CardDescription>
+              </div>
+              <Button
+                onClick={() => setShowCreateModal(true)}
+                className="gap-2 bg-gray-900 hover:bg-gray-800"
+              >
+                <Plus className="w-4 h-4" />
+                {isArabic ? 'طلب جديد' : 'New Request'}
+              </Button>
             </div>
-            <button
-              onClick={() => setShowCreateModal(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              {isArabic ? '+ طلب جديد' : '+ New Request'}
-            </button>
-          </div>
-        </div>
+          </CardHeader>
+        </Card>
 
         {/* Loading State */}
         {loading && (
           <div className="flex justify-center items-center py-12">
             <div className="text-center">
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+              <Loader2 className="w-8 h-8 animate-spin text-gray-600 mx-auto" />
               <p className="mt-2 text-gray-600">{t('common.loading')}</p>
             </div>
           </div>
@@ -194,88 +180,91 @@ export default function RequestsPage() {
 
         {/* Error State */}
         {error && !showCreateModal && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-            {error}
-          </div>
+          <Alert variant="destructive" className="mb-6">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         )}
 
         {/* Requests List */}
         {!loading && !error && (
           <div className="space-y-4">
             {requests.length === 0 ? (
-              <div className="bg-white rounded-lg shadow p-12 text-center">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                <h3 className="mt-2 text-lg font-medium text-gray-900">
-                  {t('requests.noRequests')}
-                </h3>
-                <p className="mt-1 text-gray-500">
-                  {t('requests.noRequestsDesc')}
-                </p>
-                <button
-                  onClick={() => setShowCreateModal(true)}
-                  className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-                >
-                  {isArabic ? 'إنشاء طلب' : 'Create Request'}
-                </button>
-              </div>
+              <Card className="border-gray-200">
+                <CardContent className="p-12 text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FileText className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    {t('requests.noRequests')}
+                  </h3>
+                  <p className="text-gray-500 mb-6">
+                    {t('requests.noRequestsDesc')}
+                  </p>
+                  <Button
+                    onClick={() => setShowCreateModal(true)}
+                    className="gap-2 bg-gray-900 hover:bg-gray-800"
+                  >
+                    <Plus className="w-4 h-4" />
+                    {isArabic ? 'إنشاء طلب' : 'Create Request'}
+                  </Button>
+                </CardContent>
+              </Card>
             ) : (
               requests.map((request) => (
-                <div
+                <Card
                   key={request.id}
-                  className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6"
+                  className="border-gray-200 hover:shadow-md transition-all duration-200"
                 >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          {request.type || (isArabic ? 'طلب بدون عنوان' : 'Untitled Request')}
-                        </h3>
-                        {getStatusBadge(request.status)}
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-gray-700" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">
+                            {request.type || (isArabic ? 'طلب بدون عنوان' : 'Untitled Request')}
+                          </h3>
+                        </div>
+                      </div>
+                      {getStatusBadge(request.status)}
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <Calendar className="w-4 h-4 text-gray-400" />
+                        <span className="font-medium">
+                          {isArabic ? 'التاريخ:' : 'Date:'}
+                        </span>
+                        <span>
+                          {request.date ? new Date(request.date).toLocaleDateString() : (isArabic ? 'غير متوفر' : 'N/A')}
+                        </span>
                       </div>
                       
-                      <div className="space-y-2">
-                        <p className="text-sm text-gray-600">
+                      {request.case_number && (
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <FileText className="w-4 h-4 text-gray-400" />
                           <span className="font-medium">
-                            {isArabic ? 'التاريخ:' : 'Date:'}
-                          </span>{' '}
-                          {request.date ? new Date(request.date).toLocaleDateString() : (isArabic ? 'غير متوفر' : 'N/A')}
-                        </p>
-                        
-                        {request.case_number && (
-                          <p className="text-sm text-gray-600">
-                            <span className="font-medium">
-                              {isArabic ? 'رقم القضية:' : 'Case Number:'}
-                            </span>{' '}
-                            {request.case_number}
+                            {isArabic ? 'رقم القضية:' : 'Case Number:'}
+                          </span>
+                          <span>{request.case_number}</span>
+                        </div>
+                      )}
+                      
+                      {request.details && (
+                        <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                          <p className="text-sm font-medium text-gray-900 mb-2 flex items-center gap-2">
+                            <User className="w-4 h-4 text-gray-400" />
+                            {isArabic ? 'التفاصيل:' : 'Details:'}
                           </p>
-                        )}
-                        
-                        {request.details && (
-                          <div className="mt-3 p-3 bg-gray-50 rounded-lg">
-                            <p className="text-sm font-medium text-gray-900 mb-1">
-                              {isArabic ? 'التفاصيل:' : 'Details:'}
-                            </p>
-                            <p className="text-sm text-gray-700">
-                              {request.details}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {request.details}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               ))
             )}
           </div>
@@ -283,148 +272,178 @@ export default function RequestsPage() {
 
         {/* Statistics */}
         {!loading && requests.length > 0 && (
-          <div className="mt-6 bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {t('requests.statistics')}
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-sm text-blue-600 font-medium">
-                  {t('requests.totalRequests')}
-                </p>
-                <p className="text-2xl font-bold text-blue-900">{requests.length}</p>
+          <Card className="mt-6 border-gray-200">
+            <CardHeader>
+              <CardTitle>{t('requests.statistics')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <p className="text-sm text-gray-600 font-medium">
+                      {t('requests.totalRequests')}
+                    </p>
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">{requests.length}</p>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <p className="text-sm text-gray-600 font-medium">
+                      {t('requests.pendingRequests')}
+                    </p>
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {requests.filter(r => r.status === 'pending').length}
+                  </p>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <CheckCircle className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <p className="text-sm text-gray-600 font-medium">
+                      {t('requests.approvedRequests')}
+                    </p>
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {requests.filter(r => r.status === 'approved').length}
+                  </p>
+                </div>
+                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <XCircle className="w-5 h-5 text-gray-700" />
+                    </div>
+                    <p className="text-sm text-gray-600 font-medium">
+                      {t('requests.rejectedRequests')}
+                    </p>
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {requests.filter(r => r.status === 'rejected').length}
+                  </p>
+                </div>
               </div>
-              <div className="bg-yellow-50 p-4 rounded-lg">
-                <p className="text-sm text-yellow-600 font-medium">
-                  {t('requests.pendingRequests')}
-                </p>
-                <p className="text-2xl font-bold text-yellow-900">
-                  {requests.filter(r => r.status === 'pending').length}
-                </p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <p className="text-sm text-green-600 font-medium">
-                  {t('requests.approvedRequests')}
-                </p>
-                <p className="text-2xl font-bold text-green-900">
-                  {requests.filter(r => r.status === 'approved').length}
-                </p>
-              </div>
-              <div className="bg-red-50 p-4 rounded-lg">
-                <p className="text-sm text-red-600 font-medium">
-                  {t('requests.rejectedRequests')}
-                </p>
-                <p className="text-2xl font-bold text-red-900">
-                  {requests.filter(r => r.status === 'rejected').length}
-                </p>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         )}
       </main>
 
       {/* Create Request Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-900">
-                {t('requests.createRequest')}
-              </h3>
-              <button
-                onClick={() => {
-                  setShowCreateModal(false);
-                  setError(null);
-                }}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t('requests.requestType')} *
-                  </label>
-                  <select
-                    name="request_type"
-                    value={formData.request_type}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                    required
-                  >
-                    <option value="">
-                      {isArabic ? 'اختر نوع الطلب...' : 'Select request type...'}
-                    </option>
-                    {requestTypes.map((type) => (
-                      <option key={type.value} value={type.value}>
-                        {type.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t('requests.requestDetails')} *
-                  </label>
-                  <textarea
-                    name="request_title"
-                    value={formData.request_title}
-                    onChange={handleInputChange}
-                    rows="4"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                    placeholder={isArabic ? 'أدخل تفاصيل طلبك...' : 'Enter your request details...'}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t('requests.requestDate')}
-                  </label>
-                  <input
-                    type="date"
-                    name="request_date"
-                    value={formData.request_date}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-3 mt-6">
-                <button
-                  type="button"
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <Card className="max-w-md w-full border-gray-200">
+            <CardHeader>
+              <div className="flex justify-between items-center">
+                <CardTitle>{t('requests.createRequest')}</CardTitle>
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => {
                     setShowCreateModal(false);
                     setError(null);
                   }}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
-                  disabled={submitting}
+                  className="h-8 w-8 p-0"
                 >
-                  {t('common.cancel')}
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"
-                  disabled={submitting}
-                >
-                  {submitting ? (isArabic ? 'جاري الإرسال...' : 'Submitting...') : t('requests.submit')}
-                </button>
+                  <XCircle className="w-4 h-4" />
+                </Button>
               </div>
-            </form>
-          </div>
+            </CardHeader>
+            <CardContent>
+              {error && (
+                <Alert variant="destructive" className="mb-4">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+
+              <form onSubmit={handleSubmit}>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('requests.requestType')} *
+                    </label>
+                    <Select
+                      value={formData.request_type}
+                      onValueChange={(value) => setFormData(prev => ({ ...prev, request_type: value }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={isArabic ? 'اختر نوع الطلب...' : 'Select request type...'} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {requestTypes.map((type) => (
+                          <SelectItem key={type.value} value={type.value}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('requests.requestDetails')} *
+                    </label>
+                    <textarea
+                      name="request_title"
+                      value={formData.request_title}
+                      onChange={handleInputChange}
+                      rows="4"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-gray-900 bg-white resize-none"
+                      placeholder={isArabic ? 'أدخل تفاصيل طلبك...' : 'Enter your request details...'}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {t('requests.requestDate')}
+                    </label>
+                    <input
+                      type="date"
+                      name="request_date"
+                      value={formData.request_date}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 text-gray-900 bg-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setShowCreateModal(false);
+                      setError(null);
+                    }}
+                    className="flex-1"
+                    disabled={submitting}
+                  >
+                    {t('common.cancel')}
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="flex-1 bg-gray-900 hover:bg-gray-800"
+                    disabled={submitting}
+                  >
+                    {submitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                        {isArabic ? 'جاري الإرسال...' : 'Submitting...'}
+                      </>
+                    ) : (
+                      t('requests.submit')
+                    )}
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>

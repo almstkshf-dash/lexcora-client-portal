@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from 'next/navigation';
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const LanguageContext = createContext();
@@ -15,6 +16,7 @@ export const useLanguage = () => {
 export const LanguageProvider = ({ children }) => {
   const [locale, setLocale] = useState('en');
   const [direction, setDirection] = useState('ltr');
+  const router = useRouter();
 
   useEffect(() => {
     // Load saved language preference
@@ -37,7 +39,9 @@ export const LanguageProvider = ({ children }) => {
     document.documentElement.lang = newLocale;
     
     // Reload the page to apply changes
-    window.location.reload();
+    // window.location.reload();
+    // router.refresh();
+    
   };
 
   const value = {

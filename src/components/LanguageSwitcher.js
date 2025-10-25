@@ -1,32 +1,24 @@
 "use client";
 
 import { useLanguage } from '../contexts/LanguageContext';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Languages } from 'lucide-react';
 
 export default function LanguageSwitcher() {
   const { locale, changeLanguage } = useLanguage();
 
   return (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => changeLanguage('en')}
-        className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-          locale === 'en'
-            ? 'bg-blue-600 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-        }`}
-      >
-        English
-      </button>
-      <button
-        onClick={() => changeLanguage('ar')}
-        className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-          locale === 'ar'
-            ? 'bg-blue-600 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-        }`}
-      >
-        العربية
-      </button>
-    </div>
+    <Select value={locale} onValueChange={changeLanguage}>
+      <SelectTrigger className="w-[140px]">
+        <div className="flex items-center gap-2">
+          <Languages className="w-4 h-4" />
+          <SelectValue />
+        </div>
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="en">English</SelectItem>
+        <SelectItem value="ar">العربية</SelectItem>
+      </SelectContent>
+    </Select>
   );
 }

@@ -1,27 +1,21 @@
 "use client";
 
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../contexts/AuthContext";
 import { LanguageProvider } from "../contexts/LanguageContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-noto-sans-arabic',
 });
 
 export default function RootLayout({ children }) {
   return (
-    <html>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html className={`${notoSansArabic.className} ${notoSansArabic.variable}`}>
+      <body className="font-system-arabic antialiased">
         <LanguageProvider>
           <AuthProvider>
             <ProtectedRoute>

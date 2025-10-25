@@ -18,7 +18,9 @@
     "logout": "Logout",
     "username": "Username",
     "password": "Password",
-    "loginTitle": "Mohammad Bani Hashem Law Office",
+    "passwordRequired": "Password is required",
+    "rememberMe": "Remember me",
+    "loginTitle": "Lexora",
     "loginButton": "Login",
     "loggingIn": "Logging in...",
     "loginError": "Login failed. Please try again.",
@@ -54,6 +56,9 @@
     "messages": "Messages",
     "profile": "Profile",
     "settings": "Settings"
+  },
+  "settings": {
+    "language": "Language"
   },
   "documents": {
     "title": "My Documents",
