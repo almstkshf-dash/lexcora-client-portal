@@ -85,7 +85,6 @@ export default function LoginPage() {
           localStorage.removeItem('rememberedUsername');
           localStorage.removeItem('rememberedPassword');
         }
-        console.log('Login successful');
       } else {
         setError(t('auth.invalidCredentials'));
       }
@@ -126,7 +125,7 @@ export default function LoginPage() {
               <Image height='60' width='60' src="/log_in_card_logo.png" alt="Law Office Logo" className="w-full h-full object-contain" />
             </div>
             <h1 className="text-2xl font-bold text-white text-center mb-1">
-              LEXORA
+              LEXCORA
             </h1>
           </CardHeader>
           
@@ -150,7 +149,7 @@ export default function LoginPage() {
                     placeholder={t('auth.username')}
                     value={formData.username}
                     onChange={handleInputChange}
-                    className={`h-11 ${errors.username ? 'border-red-500' : ''}`}
+                    className={`h-11 text-white placeholder:text-white/70 ${errors.username ? 'border-red-500' : ''}`}
                     disabled={loading}
                     dir="rtl"
                   />
@@ -171,7 +170,7 @@ export default function LoginPage() {
                       placeholder={t('auth.password')}
                       value={formData.password}
                       onChange={handleInputChange}
-                      className={`h-11 pl-10 ${errors.password ? 'border-red-500' : ''}`}
+                      className={`h-11 pl-10 text-white placeholder:text-white/70 ${errors.password ? 'border-red-500' : ''}`}
                       disabled={loading}
                       dir="rtl"
                     />
@@ -222,9 +221,12 @@ export default function LoginPage() {
               </div>
             </form>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex flex-col items-center space-y-1">
+            <p className="text-white text-xs font-medium">
+              Lexcora ERP system by Almstkshf.com
+            </p>
             <p className="text-white text-xs">
-              نظام LEXORA لإدارة مكاتب المحاماة
+              For technical support: rased@almstkshf.com | Call: 05085952035
             </p>
           </CardFooter>
         </Card>
