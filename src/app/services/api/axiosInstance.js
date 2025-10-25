@@ -21,7 +21,7 @@ api.interceptors.request.use(
         return null;
       };
       
-      let token = getCookie('authToken');
+      let token = getCookie('clientAuthToken'); // Check for client auth cookie
       
       // Fallback to localStorage if cookie doesn't exist
       if (!token) {
@@ -50,7 +50,7 @@ api.interceptors.response.use(
       // If we get a 401 unauthorized error, redirect to login
       if (error.response && error.response.status === 401) {
         // Clear auth data
-        document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'clientAuthToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         localStorage.removeItem('authToken');
         // Redirect to login if not already there
         if (!window.location.pathname.includes('/login')) {

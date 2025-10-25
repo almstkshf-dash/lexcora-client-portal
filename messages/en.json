@@ -60,6 +60,14 @@
   "settings": {
     "language": "Language"
   },
+  "cases": {
+    "title": "My Cases",
+    "description": "View and access your cases",
+    "noCases": "No Cases Found",
+    "noCasesDesc": "You don't have any cases yet.",
+    "statistics": "Statistics",
+    "totalCases": "Total Cases"
+  },
   "documents": {
     "title": "My Documents",
     "description": "View and access your documents",

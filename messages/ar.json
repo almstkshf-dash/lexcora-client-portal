@@ -60,6 +60,14 @@
   "settings": {
     "language": "اللغة"
   },
+  "cases": {
+    "title": "قضاياي",
+    "description": "عرض والوصول إلى قضاياك",
+    "noCases": "لا توجد قضايا",
+    "noCasesDesc": "ليس لديك أي قضايا حتى الآن.",
+    "statistics": "الإحصائيات",
+    "totalCases": "إجمالي القضايا"
+  },
   "documents": {
     "title": "مستنداتي",
     "description": "عرض والوصول إلى مستنداتك",
