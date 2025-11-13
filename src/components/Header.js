@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeSwitcher from './ThemeSwitcher';
 import { Button } from './ui/button';
 import { ArrowLeft, Menu, X, LogOut, Home } from 'lucide-react';
 
@@ -15,7 +16,7 @@ export default function Header({ title, showBackButton = false, backTo = '/' }) 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white/80 backdrop-blur-sm shadow-sm border-b border-gray-200 sticky top-0 z-40">
+    <nav className="  sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left Section */}
@@ -39,13 +40,14 @@ export default function Header({ title, showBackButton = false, backTo = '/' }) 
                 <span className="hidden sm:inline">{t('navigation.home')}</span>
               </Button>
             )}
-            <h1 className="text-lg sm:text-xl font-bold text-gray-900 truncate">
+            <h1 className="text-lg sm:text-xl font-bold  truncate">
               {title || t('home.title')}
             </h1>
           </div>
 
           {/* Right Section - Desktop */}
           <div className="hidden md:flex items-center gap-4">
+            <ThemeSwitcher />
             <LanguageSwitcher />
             <Button
               onClick={logout}
@@ -79,7 +81,13 @@ export default function Header({ title, showBackButton = false, backTo = '/' }) 
           <div className="md:hidden pb-4 border-t border-gray-200 mt-2 pt-4 space-y-3">
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-sm font-medium ">
+                  {t('settings.theme') || 'Theme'}
+                </span>
+                <ThemeSwitcher />
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium ">
                   {t('settings.language') || 'Language'}
                 </span>
                 <LanguageSwitcher />

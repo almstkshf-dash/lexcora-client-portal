@@ -205,7 +205,7 @@ export default function LoginPage() {
 
                 <Button
                   type="submit"
-                  className="w-full   h-11"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-11"
                   disabled={loading}
                 >
                   {loading ? (
@@ -225,7 +225,7 @@ export default function LoginPage() {
               Lexcora ERP system by Almstkshf.com
             </p>
             <p className="text-white text-xs">
-              For technical support: rased@almstkshf.com | Call: 05085952035
+              For technical support: rased@almstkshf.com | Call: 0585952035
             </p>
           </CardFooter>
         </Card>

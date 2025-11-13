@@ -58,7 +58,21 @@
     "settings": "الإعدادات"
   },
   "settings": {
-    "language": "اللغة"
+    "language": "اللغة",
+    "theme": "المظهر"
+  },
+  "theme": {
+    "switchTheme": "تبديل المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "blue": "أزرق",
+    "blueNew": "أزرق جديد",
+    "green": "أخضر",
+    "orange": "برتقالي",
+    "orangeGold": "برتقالي ذهبي",
+    "violet": "بنفسجي",
+    "yellow": "أصفر",
+    "rose": "وردي"
   },
   "cases": {
     "title": "قضاياي",

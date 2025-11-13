@@ -45,7 +45,7 @@ export default function CasesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen  " dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Navigation */}
       <Header title={t('cases.title')} showBackButton={true} />
 
@@ -64,12 +64,12 @@ export default function CasesPage() {
                   {t('home.myCasesDesc')}
                 </CardDescription>
               </div>
-              <div className="text-right bg-gray-50 p-3 rounded-lg">
-                <p className="text-xs text-gray-600 flex items-center gap-1 justify-end">
+              <div className="text-right bg-muted/30 p-3 rounded-lg">
+                <p className="text-xs text-muted-foreground flex items-center gap-1 justify-end">
                   <User className="w-3 h-3" />
                   {t('home.username')}
                 </p>
-                <p className="font-semibold text-gray-900 mt-1">{user?.name || user?.username}</p>
+                <p className="font-semibold text-foreground mt-1">{user?.name || user?.username}</p>
               </div>
             </div>
           </CardHeader>
@@ -79,8 +79,8 @@ export default function CasesPage() {
         {loading && (
           <Card className="border-0 shadow-lg">
             <CardContent className="flex flex-col justify-center items-center py-12">
-              <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
-              <p className="mt-4 text-gray-600">{t('common.loading')}</p>
+              <Loader2 className="w-12 h-12 text-primary animate-spin" />
+              <p className="mt-4 text-muted-foreground">{t('common.loading')}</p>
             </CardContent>
           </Card>
         )}
@@ -99,14 +99,14 @@ export default function CasesPage() {
               <Card className="border-0 shadow-lg">
                 <CardContent className="py-12 text-center">
                   <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-gray-100 rounded-full">
-                      <FolderOpen className="w-12 h-12 text-gray-400" />
+                    <div className="p-4 bg-muted/50 rounded-full">
+                      <FolderOpen className="w-12 h-12 text-muted-foreground" />
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
                     {isArabic ? 'لا توجد قضايا' : 'No Cases Found'}
                   </h3>
-                  <p className="text-gray-500">
+                  <p className="text-muted-foreground">
                     {isArabic ? 'ليس لديك أي قضايا حتى الآن.' : 'You don\'t have any cases yet.'}
                   </p>
                 </CardContent>
@@ -125,31 +125,31 @@ export default function CasesPage() {
                           <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
                             <FileText className="w-5 h-5 text-blue-600" />
                           </div>
-                          <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                          <h3 className="text-lg font-bold text-foreground group-hover:text-blue-600 transition-colors">
                             {caseItem.topic || (isArabic ? 'قضية بدون عنوان' : 'Untitled Case')}
                           </h3>
                         </div>
                         
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
-                            <Hash className="w-4 h-4 text-gray-500" />
+                          <div className="flex items-center gap-2 p-3  rounded-lg">
+                            <Hash className="w-4 h-4 " />
                             <div>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-muted-foreground">
                                 {isArabic ? 'رقم القضية' : 'Case Number'}
                               </p>
-                              <p className="text-sm font-semibold text-gray-900">
+                              <p className="text-sm font-semibold text-foreground">
                                 {caseItem.case_number || (isArabic ? 'غير متوفر' : 'N/A')}
                               </p>
                             </div>
                           </div>
                           
-                          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
-                            <FileText className="w-4 h-4 text-gray-500" />
+                          <div className="flex items-center gap-2 p-3  rounded-lg">
+                            <FileText className="w-4 h-4 " />
                             <div>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-muted-foreground">
                                 {isArabic ? 'رقم الملف' : 'File Number'}
                               </p>
-                              <p className="text-sm font-semibold text-gray-900">
+                              <p className="text-sm font-semibold text-foreground">
                                 {caseItem.file_number || (isArabic ? 'غير متوفر' : 'N/A')}
                               </p>
                             </div>
@@ -177,22 +177,22 @@ export default function CasesPage() {
 
         {/* Statistics */}
         {!loading && cases.length > 0 && (
-          <Card className="mt-6 border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
+          <Card className="mt-6 border-0 shadow-lg  ">
             <CardHeader>
               <CardTitle className="text-lg">
                 {isArabic ? 'الإحصائيات' : 'Statistics'}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
-                <div className="p-3 bg-blue-100 rounded-full">
+              <div className="flex items-center gap-4 p-4  rounded-lg shadow-sm">
+                <div className="p-3  rounded-full">
                   <FolderOpen className="w-8 h-8 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">
+                  <p className="text-sm text-muted-foreground font-medium">
                     {isArabic ? 'إجمالي القضايا' : 'Total Cases'}
                   </p>
-                  <p className="text-3xl font-bold text-gray-900">{cases.length}</p>
+                  <p className="text-3xl font-bold text-foreground">{cases.length}</p>
                 </div>
               </div>
             </CardContent>

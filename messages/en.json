@@ -58,7 +58,21 @@
     "settings": "Settings"
   },
   "settings": {
-    "language": "Language"
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "theme": {
+    "switchTheme": "Switch theme",
+    "light": "Light",
+    "dark": "Dark",
+    "blue": "Blue",
+    "blueNew": "Blue New",
+    "green": "Green",
+    "orange": "Orange",
+    "orangeGold": "Orange Gold",
+    "violet": "Violet",
+    "yellow": "Yellow",
+    "rose": "Rose"
   },
   "cases": {
     "title": "My Cases",

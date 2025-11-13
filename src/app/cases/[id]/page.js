@@ -58,13 +58,13 @@ export default function CaseDetailsPage() {
   };
 
   const InfoRow = ({ icon: Icon, label, value }) => (
-    <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+    <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
       <div className="p-2 bg-white rounded-lg shadow-sm border">
-        <Icon className="w-5 h-5 text-gray-700" />
+        <Icon className="w-5 h-5 text-primary" />
       </div>
       <div className="flex-1 min-w-0">
-        <dt className="text-xs font-medium text-gray-500 mb-1">{label}</dt>
-        <dd className="text-sm font-semibold text-gray-900 break-words">
+        <dt className="text-xs font-medium text-muted-foreground mb-1">{label}</dt>
+        <dd className="text-sm font-semibold text-foreground break-words">
           {value || (isArabic ? 'غير متوفر' : 'N/A')}
         </dd>
       </div>
@@ -72,7 +72,7 @@ export default function CaseDetailsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-background" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Navigation */}
       <Header 
         title={isArabic ? 'تفاصيل القضية' : 'Case Details'} 
@@ -86,8 +86,8 @@ export default function CaseDetailsPage() {
         {loading && (
           <Card className="border-0 shadow-lg">
             <CardContent className="flex flex-col justify-center items-center py-12">
-              <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
-              <p className="mt-4 text-gray-600">{t('common.loading')}</p>
+              <Loader2 className="w-12 h-12 text-primary animate-spin" />
+              <p className="mt-4 text-muted-foreground">{t('common.loading')}</p>
             </CardContent>
           </Card>
         )}
@@ -105,8 +105,8 @@ export default function CaseDetailsPage() {
             {/* Case Information Card */}
             <Card className="border-0 shadow-lg overflow-hidden">
               <CardHeader className="bg-white border-b">
-                <CardTitle className="text-gray-900 flex items-center gap-2">
-                  <FileText className="w-6 h-6 text-gray-700" />
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <FileText className="w-6 h-6 text-primary" />
                   {isArabic ? 'معلومات القضية' : 'Case Information'}
                 </CardTitle>
               </CardHeader>
@@ -146,15 +146,15 @@ export default function CaseDetailsPage() {
                 
                 {caseData.additional_note && (
                   <div className="mt-6">
-                    <Card className="bg-gray-50 border-gray-200">
+                    <Card className="bg-muted/30">
                       <CardHeader className="pb-3">
-                        <CardTitle className="text-sm flex items-center gap-2 text-gray-900">
+                        <CardTitle className="text-sm flex items-center gap-2 text-foreground">
                           <AlertCircle className="w-4 h-4" />
                           {isArabic ? 'ملاحظات إضافية' : 'Additional Notes'}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="pt-0">
-                        <p className="text-sm text-gray-900 leading-relaxed">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
                           {caseData.additional_note}
                         </p>
                       </CardContent>
@@ -167,8 +167,8 @@ export default function CaseDetailsPage() {
             {/* Sessions Section */}
             <Card className="border-0 shadow-lg overflow-hidden">
               <CardHeader className="bg-white border-b">
-                <CardTitle className="text-gray-900 flex items-center gap-2">
-                  <Calendar className="w-6 h-6 text-gray-700" />
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <Calendar className="w-6 h-6 text-primary" />
                   {isArabic ? 'جلسات القضية' : 'Case Sessions'}
                 </CardTitle>
               </CardHeader>
@@ -178,19 +178,19 @@ export default function CaseDetailsPage() {
                     {caseData.sessions.map((session, index) => (
                       <Card 
                         key={session.id} 
-                        className="border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300"
+                        className="bg-card hover:shadow-lg transition-all duration-300"
                       >
                         <CardContent className="p-5">
                           <div className="flex justify-between items-start mb-4">
                             <div className="flex items-center gap-3">
-                              <div className="p-2 bg-gray-100 rounded-lg border">
-                                <Calendar className="w-5 h-5 text-gray-700" />
+                              <div className="p-2 bg-primary/10 rounded-lg border">
+                                <Calendar className="w-5 h-5 text-primary" />
                               </div>
-                              <h3 className="text-lg font-bold text-gray-900">
+                              <h3 className="text-lg font-bold text-foreground">
                                 {isArabic ? `الجلسة ${index + 1}` : `Session ${index + 1}`}
                               </h3>
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 px-3 py-1.5 rounded-lg">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-lg">
                               <Clock className="w-4 h-4" />
                               {formatDate(session.session_date)}
                             </div>
@@ -198,17 +198,17 @@ export default function CaseDetailsPage() {
                           
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {session.link && (
-                              <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg md:col-span-2 border">
-                                <LinkIcon className="w-5 h-5 text-gray-700 mt-0.5" />
+                              <div className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg md:col-span-2 border">
+                                <LinkIcon className="w-5 h-5 text-primary mt-0.5" />
                                 <div className="flex-1 min-w-0">
-                                  <span className="text-xs font-medium text-gray-900 block mb-1">
+                                  <span className="text-xs font-medium text-muted-foreground block mb-1">
                                     {isArabic ? 'الرابط:' : 'Link:'}
                                   </span>
                                   <a 
                                     href={session.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-sm text-gray-700 hover:text-gray-900 hover:underline break-all font-medium"
+                                    className="text-sm text-primary hover:underline break-all font-medium"
                                   >
                                     {session.link}
                                   </a>
@@ -218,15 +218,15 @@ export default function CaseDetailsPage() {
 
                             {session.decision && (
                               <div className="md:col-span-2">
-                                <Card className="bg-gray-50 border-gray-200">
+                                <Card className="bg-muted/30">
                                   <CardContent className="p-4">
                                     <div className="flex items-start gap-3">
-                                      <CheckCircle className="w-5 h-5 text-gray-700 mt-0.5" />
+                                      <CheckCircle className="w-5 h-5 text-primary mt-0.5" />
                                       <div>
-                                        <span className="text-xs font-medium text-gray-900 block mb-1">
+                                        <span className="text-xs font-medium text-muted-foreground block mb-1">
                                           {isArabic ? 'القرار:' : 'Decision:'}
                                         </span>
-                                        <p className="text-sm text-gray-900 leading-relaxed">
+                                        <p className="text-sm text-foreground leading-relaxed">
                                           {session.decision}
                                         </p>
                                       </div>
@@ -240,14 +240,14 @@ export default function CaseDetailsPage() {
                           {(session.is_judgment_reserved === 1 || session.is_judgment_deferred === 1) && (
                             <div className="flex gap-2 mt-4">
                               {session.is_judgment_reserved === 1 && (
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 border border-gray-300">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
                                   <AlertCircle className="w-3.5 h-3.5" />
                                   {isArabic ? 'حجز للحكم' : 'Judgment Reserved'}
                                 </span>
                               )}
 
                               {session.is_judgment_deferred === 1 && (
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 border border-gray-300">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-200">
                                   <Clock className="w-3.5 h-3.5" />
                                   {isArabic ? 'تأجيل الحكم' : 'Judgment Deferred'}
                                 </span>
@@ -261,14 +261,14 @@ export default function CaseDetailsPage() {
                 ) : (
                   <div className="text-center py-12">
                     <div className="flex justify-center mb-4">
-                      <div className="p-4 bg-gray-100 rounded-full">
-                        <Calendar className="w-12 h-12 text-gray-400" />
+                      <div className="p-4 bg-muted/50 rounded-full">
+                        <Calendar className="w-12 h-12 text-muted-foreground" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
                       {isArabic ? 'لا توجد جلسات' : 'No Sessions'}
                     </h3>
-                    <p className="text-gray-500">
+                    <p className="text-muted-foreground">
                       {isArabic 
                         ? 'لم يتم تسجيل أي جلسات لهذه القضية بعد.' 
                         : 'No sessions have been recorded for this case yet.'}

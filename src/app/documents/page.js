@@ -179,22 +179,22 @@ export default function DocumentsPage() {
 
         {/* Statistics */}
         {!loading && documents.length > 0 && (
-          <Card className="mt-6 border-0 shadow-lg bg-gray-50">
+          <Card className="mt-6 border-0 shadow-lg ">
             <CardHeader>
               <CardTitle className="text-lg">
                 {t('documents.statistics')}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-4 p-4 bg-white rounded-lg shadow-sm">
-                <div className="p-3 bg-gray-100 rounded-full">
-                  <FileText className="w-8 h-8 text-gray-700" />
+              <div className="flex items-center gap-4 p-4  rounded-lg shadow-sm">
+                <div className="p-3  rounded-full">
+                  <FileText className="w-8 h-8 " />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 font-medium">
+                  <p className="text-sm  font-medium">
                     {t('documents.totalDocuments')}
                   </p>
-                  <p className="text-3xl font-bold text-gray-900">{documents.length}</p>
+                  <p className="text-3xl font-bold ">{documents.length}</p>
                 </div>
               </div>
             </CardContent>

@@ -49,7 +49,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen " dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Navigation */}
       <Header title={t('home.title')} showBackButton={false} />
 
@@ -67,42 +67,42 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+              <div className="flex items-center gap-3 p-3 rounded-lg ">
                 <div className="p-2 rounded-full bg-blue-100">
                   <User className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600">{t('home.username')}</p>
-                  <p className="text-sm font-semibold text-gray-900">{user?.username}</p>
+                  <p className="text-xs ">{t('home.username')}</p>
+                  <p className="text-sm font-semibold ">{user?.username}</p>
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="p-2 rounded-full bg-green-100">
+              <div className="flex items-center gap-3 p-3 rounded-lg ">
+                <div className="p-2 rounded-full ">
                   <User className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600">{t('home.name')}</p>
-                  <p className="text-sm font-semibold text-gray-900">{user?.name || t('home.notAvailable')}</p>
+                  <p className="text-xs ">{t('home.name')}</p>
+                  <p className="text-sm font-semibold ">{user?.name || t('home.notAvailable')}</p>
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                <div className="p-2 rounded-full bg-purple-100">
+              <div className="flex items-center gap-3 p-3 rounded-lg ">
+                <div className="p-2 rounded-full ">
                   <Phone className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600">{t('home.phone')}</p>
-                  <p className="text-sm font-semibold text-gray-900">{user?.phone || t('home.notAvailable')}</p>
+                  <p className="text-xs ">{t('home.phone')}</p>
+                  <p className="text-sm font-semibold ">{user?.phone || t('home.notAvailable')}</p>
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+              <div className="flex items-center gap-3 p-3 rounded-lg ">
                 <div className="p-2 rounded-full bg-orange-100">
                   <Shield className="w-5 h-5 text-orange-600" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-600">{t('home.status')}</p>
+                  <p className="text-xs ">{t('home.status')}</p>
                   <p className={`text-sm font-semibold ${user?.status === 'active' ? 'text-green-600' : 'text-red-600'}`}>
                     {user?.status || t('home.notAvailable')}
                   </p>
@@ -114,7 +114,7 @@ export default function Home() {
 
         {/* Quick Links Section */}
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold  mb-4">
             {t('home.quickLinks')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -132,10 +132,10 @@ export default function Home() {
                         <Icon className="w-12 h-12" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-1">
+                        <h3 className="text-lg font-bold  mb-1">
                           {link.title}
                         </h3>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm ">
                           {link.description}
                         </p>
                       </div>

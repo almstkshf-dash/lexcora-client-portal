@@ -4,6 +4,7 @@ import { Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../contexts/AuthContext";
 import { LanguageProvider } from "../contexts/LanguageContext";
+import { ThemeProvider } from "../contexts/ThemeContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 const notoSansArabic = Noto_Sans_Arabic({
@@ -17,11 +18,13 @@ export default function RootLayout({ children }) {
     <html className={`${notoSansArabic.className} ${notoSansArabic.variable}`}>
       <body className="font-system-arabic antialiased">
         <LanguageProvider>
-          <AuthProvider>
-            <ProtectedRoute>
-              {children}
-            </ProtectedRoute>
-          </AuthProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <ProtectedRoute>
+                {children}
+              </ProtectedRoute>
+            </AuthProvider>
+          </ThemeProvider>
         </LanguageProvider>
       </body>
     </html>
