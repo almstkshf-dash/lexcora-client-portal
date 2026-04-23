@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../hooks/useTranslation';
@@ -12,14 +12,14 @@ export default function ProtectedRoute({ children }) {
   const pathname = usePathname();
 
   // List of public routes that don't require authentication
-  const publicRoutes = ['/login'];
+  const publicRoutes = useMemo(() => ['/login'], []);
 
   useEffect(() => {
     // If not loading and not authenticated, and not on a public route
     if (!loading && !isAuthenticated && !publicRoutes.includes(pathname)) {
       router.push('/login');
     }
-  }, [loading, isAuthenticated, pathname, router]);
+  }, [loading, isAuthenticated, pathname, router, publicRoutes]);
 
   // Show loading spinner only on protected routes, not on login page
   if (loading && !publicRoutes.includes(pathname)) {

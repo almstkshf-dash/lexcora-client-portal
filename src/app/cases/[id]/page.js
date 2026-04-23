@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useTranslation } from '../../../hooks/useTranslation';
@@ -22,13 +22,7 @@ export default function CaseDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (id) {
-      fetchCaseDetails();
-    }
-  }, [id]);
-
-  const fetchCaseDetails = async () => {
+  const fetchCaseDetails = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -45,7 +39,13 @@ export default function CaseDetailsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      fetchCaseDetails();
+    }
+  }, [id, fetchCaseDetails]);
 
   const formatDate = (dateString) => {
     if (!dateString) return isArabic ? 'غير متوفر' : 'N/A';
