@@ -16,6 +16,10 @@ const notoSansArabic = Noto_Sans_Arabic({
 export default function RootLayout({ children }) {
   return (
     <html className={`${notoSansArabic.className} ${notoSansArabic.variable}`}>
+      <head>
+        <title>Lexcora Client Portal</title>
+        <meta name="description" content="Lexcora Client Portal System" />
+      </head>
       <body className="font-system-arabic antialiased">
         <LanguageProvider>
           <ThemeProvider>
