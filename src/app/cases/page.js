@@ -21,6 +21,7 @@ export default function CasesPage() {
   const { isArabic } = useLanguage();
   const router = useRouter();
   const [cases, setCases] = useState([]);
+  const [stats, setStats] = useState({ total: 0, active: 0, pending: 0, important: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,6 +38,7 @@ export default function CasesPage() {
       
       if (response.success) {
         setCases(response.data || []);
+        setStats(response.stats || { total: 0, active: 0, pending: 0, important: 0 });
       } else {
         setError(response.message || 'Failed to load cases');
       }
@@ -304,7 +306,7 @@ export default function CasesPage() {
                   <p className="text-sm text-muted-foreground font-medium mb-1">
                     {t('cases.totalCases')}
                   </p>
-                  <p className="text-3xl font-bold text-foreground">{cases.length}</p>
+                  <p className="text-3xl font-bold text-foreground">{stats.total}</p>
                 </CardContent>
               </Card>
 
@@ -322,7 +324,7 @@ export default function CasesPage() {
                   <p className="text-sm text-muted-foreground font-medium mb-1">
                     {t('cases.ongoingCases')}
                   </p>
-                  <p className="text-3xl font-bold text-foreground">{cases.length}</p>
+                  <p className="text-3xl font-bold text-foreground">{stats.active}</p>
                 </CardContent>
               </Card>
 
@@ -334,9 +336,9 @@ export default function CasesPage() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground font-medium mb-1">
-                    {t('cases.closedCases')}
+                    {t('cases.pendingCases')}
                   </p>
-                  <p className="text-3xl font-bold text-foreground">0</p>
+                  <p className="text-3xl font-bold text-foreground">{stats.pending}</p>
                 </CardContent>
               </Card>
 
@@ -348,9 +350,9 @@ export default function CasesPage() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground font-medium mb-1">
-                    {t('cases.upcomingSessions')}
+                    {t('cases.importantCases')}
                   </p>
-                  <p className="text-3xl font-bold text-foreground">0</p>
+                  <p className="text-3xl font-bold text-foreground">{stats.important}</p>
                 </CardContent>
               </Card>
             </div>

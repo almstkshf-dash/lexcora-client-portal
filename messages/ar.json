@@ -90,8 +90,8 @@
     "inProgress": "قيد المعالجة",
     "addedDate": "تاريخ الإضافة",
     "ongoingCases": "قضايا جارية",
-    "closedCases": "قضايا مغلقة",
-    "upcomingSessions": "جلسات قادمة"
+    "pendingCases": "قضايا قيد الانتظار",
+    "importantCases": "قضايا هامة"
   },
   "documents": {
     "title": "مستنداتي",

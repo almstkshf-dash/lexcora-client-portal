@@ -90,8 +90,8 @@
     "inProgress": "In Progress",
     "addedDate": "Added Date",
     "ongoingCases": "Ongoing Cases",
-    "closedCases": "Closed Cases",
-    "upcomingSessions": "Upcoming Sessions"
+    "pendingCases": "Pending Cases",
+    "importantCases": "Important Cases"
   },
   "documents": {
     "title": "My Documents",
