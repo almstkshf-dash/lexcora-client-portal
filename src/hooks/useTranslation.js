@@ -1,16 +1,21 @@
 "use client";
 
 import { useLanguage } from '../contexts/LanguageContext';
-import enMessages from '../../messages/en.json';
-import arMessages from '../../messages/ar.json';
-
-const messages = {
-  en: enMessages,
-  ar: arMessages
-};
+// Lazy-load JSON to avoid Turbopack HMR pattern-matching errors with large files
+let _cachedMessages = null;
+function getMessages() {
+  if (!_cachedMessages) {
+    _cachedMessages = {
+      en: require('../../messages/en.json'),
+      ar: require('../../messages/ar.json')
+    };
+  }
+  return _cachedMessages;
+}
 
 export const useTranslation = () => {
   const { locale } = useLanguage();
+  const messages = getMessages();
 
   const t = (key, values = {}) => {
     const keys = key.split('.');
