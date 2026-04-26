@@ -80,7 +80,18 @@
     "noCases": "لا توجد قضايا",
     "noCasesDesc": "ليس لديك أي قضايا حتى الآن.",
     "statistics": "الإحصائيات",
-    "totalCases": "إجمالي القضايا"
+    "totalCases": "إجمالي القضايا",
+    "activeClient": "عميل نشط",
+    "filter": "تصفية",
+    "retry": "إعادة المحاولة",
+    "noResults": "لا توجد نتائج",
+    "noResultsDesc": "لم نجد أي قضية تطابق بحثك.",
+    "clearSearch": "مسح البحث",
+    "inProgress": "قيد المعالجة",
+    "addedDate": "تاريخ الإضافة",
+    "ongoingCases": "قضايا جارية",
+    "closedCases": "قضايا مغلقة",
+    "upcomingSessions": "جلسات قادمة"
   },
   "documents": {
     "title": "مستنداتي",

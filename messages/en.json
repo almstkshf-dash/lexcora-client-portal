@@ -80,7 +80,18 @@
     "noCases": "No Cases Found",
     "noCasesDesc": "You don't have any cases yet.",
     "statistics": "Statistics",
-    "totalCases": "Total Cases"
+    "totalCases": "Total Cases",
+    "activeClient": "Active Client",
+    "filter": "Filter",
+    "retry": "Retry",
+    "noResults": "No results found",
+    "noResultsDesc": "We couldn't find any cases matching your search.",
+    "clearSearch": "Clear search",
+    "inProgress": "In Progress",
+    "addedDate": "Added Date",
+    "ongoingCases": "Ongoing Cases",
+    "closedCases": "Closed Cases",
+    "upcomingSessions": "Upcoming Sessions"
   },
   "documents": {
     "title": "My Documents",
