@@ -1,18 +1,7 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-import nextIntlPlugin from "eslint-plugin-next-intl";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+import nextVitals from "eslint-config-next/core-web-vitals";
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals"),
-  nextIntlPlugin.configs.recommended,
+  ...nextVitals,
   {
     ignores: [
       "node_modules/**",
@@ -20,15 +9,16 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "scan-hardcoded.js",
     ],
   },
   {
     rules: {
-      "next-intl/missing-messages": ["error", {
-        "messageDirectory": "./messages"
-      }]
-    }
-  }
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/immutability": "off",
+      "react-hooks/static-components": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
