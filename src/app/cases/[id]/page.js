@@ -31,11 +31,11 @@ export default function CaseDetailsPage() {
       if (response.success) {
         setCaseData(response.data);
       } else {
-        setError(response.message || 'Failed to load case details');
+        setError(response.message || t('cases.failedToLoadCaseDetails'));
       }
     } catch (err) {
       console.error('Error fetching case details:', err);
-      setError(err.response?.data?.message || 'Failed to load case details');
+      setError(err.response?.data?.message || t('cases.failedToLoadCaseDetails'));
     } finally {
       setLoading(false);
     }
@@ -48,7 +48,7 @@ export default function CaseDetailsPage() {
   }, [id, fetchCaseDetails]);
 
   const formatDate = (dateString) => {
-    if (!dateString) return isArabic ? 'غير متوفر' : 'N/A';
+    if (!dateString) return t('home.notAvailable');
     const date = new Date(dateString);
     return date.toLocaleDateString(isArabic ? 'ar-AE' : 'en-US', {
       year: 'numeric',
@@ -65,7 +65,7 @@ export default function CaseDetailsPage() {
       <div className="flex-1 min-w-0">
         <dt className="text-xs font-medium text-muted-foreground mb-1">{label}</dt>
         <dd className="text-sm font-semibold text-foreground break-words">
-          {value || (isArabic ? 'غير متوفر' : 'N/A')}
+          {value || t('home.notAvailable')}
         </dd>
       </div>
     </div>
@@ -75,7 +75,7 @@ export default function CaseDetailsPage() {
     <div className="min-h-screen bg-background" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Navigation */}
       <Header 
-        title={isArabic ? 'تفاصيل القضية' : 'Case Details'} 
+        title={t('cases.caseDetailsTitle')} 
         showBackButton={true} 
         backTo="/cases" 
       />
@@ -107,39 +107,39 @@ export default function CaseDetailsPage() {
               <CardHeader className="bg-white border-b">
                 <CardTitle className="text-foreground flex items-center gap-2">
                   <FileText className="w-6 h-6 text-primary" />
-                  {isArabic ? 'معلومات القضية' : 'Case Information'}
+                  {t('cases.caseInformation')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <InfoRow 
                     icon={FileText}
-                    label={isArabic ? 'عنوان القضية' : 'Case Topic'} 
+                    label={t('cases.caseTopic')} 
                     value={caseData.topic} 
                   />
                   <InfoRow 
                     icon={Hash}
-                    label={isArabic ? 'رقم الملف' : 'File Number'} 
+                    label={t('cases.fileNumberLabel')} 
                     value={caseData.file_number} 
                   />
                   <InfoRow 
                     icon={Hash}
-                    label={isArabic ? 'رقم القضية' : 'Case Number'} 
+                    label={t('cases.caseNumberLabel')} 
                     value={caseData.case_number} 
                   />
                   <InfoRow 
                     icon={User}
-                    label={isArabic ? 'اسم المحامي' : 'Lawyer Name'} 
+                    label={t('cases.lawyerName')} 
                     value={caseData.lawyer_name} 
                   />
                   <InfoRow 
                     icon={FileText}
-                    label={isArabic ? 'نوع القضية' : 'Case Type'} 
+                    label={t('cases.caseType')} 
                     value={isArabic ? caseData.case_type_ar : caseData.case_type_en} 
                   />
                   <InfoRow 
                     icon={Calendar}
-                    label={isArabic ? 'تاريخ البدء' : 'Start Date'} 
+                    label={t('cases.startDate')} 
                     value={formatDate(caseData.start_date)} 
                   />
                 </div>
@@ -150,7 +150,7 @@ export default function CaseDetailsPage() {
                       <CardHeader className="pb-3">
                         <CardTitle className="text-sm flex items-center gap-2 text-foreground">
                           <AlertCircle className="w-4 h-4" />
-                          {isArabic ? 'ملاحظات إضافية' : 'Additional Notes'}
+                          {t('cases.additionalNotes')}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="pt-0">
@@ -169,7 +169,7 @@ export default function CaseDetailsPage() {
               <CardHeader className="bg-white border-b">
                 <CardTitle className="text-foreground flex items-center gap-2">
                   <Calendar className="w-6 h-6 text-primary" />
-                  {isArabic ? 'جلسات القضية' : 'Case Sessions'}
+                  {t('cases.caseSessions')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
@@ -187,7 +187,7 @@ export default function CaseDetailsPage() {
                                 <Calendar className="w-5 h-5 text-primary" />
                               </div>
                               <h3 className="text-lg font-bold text-foreground">
-                                {isArabic ? `الجلسة ${index + 1}` : `Session ${index + 1}`}
+                                {t('cases.sessionNumber', { number: index + 1 })}
                               </h3>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-lg">
@@ -202,7 +202,7 @@ export default function CaseDetailsPage() {
                                 <LinkIcon className="w-5 h-5 text-primary mt-0.5" />
                                 <div className="flex-1 min-w-0">
                                   <span className="text-xs font-medium text-muted-foreground block mb-1">
-                                    {isArabic ? 'الرابط:' : 'Link:'}
+                                    {t('cases.linkLabel')}
                                   </span>
                                   <a 
                                     href={session.link}
@@ -224,7 +224,7 @@ export default function CaseDetailsPage() {
                                       <CheckCircle className="w-5 h-5 text-primary mt-0.5" />
                                       <div>
                                         <span className="text-xs font-medium text-muted-foreground block mb-1">
-                                          {isArabic ? 'القرار:' : 'Decision:'}
+                                          {t('cases.decisionLabel')}
                                         </span>
                                         <p className="text-sm text-foreground leading-relaxed">
                                           {session.decision}
@@ -242,14 +242,14 @@ export default function CaseDetailsPage() {
                               {session.is_judgment_reserved === 1 && (
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
                                   <AlertCircle className="w-3.5 h-3.5" />
-                                  {isArabic ? 'حجز للحكم' : 'Judgment Reserved'}
+                                  {t('cases.judgmentReserved')}
                                 </span>
                               )}
 
                               {session.is_judgment_deferred === 1 && (
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-200">
                                   <Clock className="w-3.5 h-3.5" />
-                                  {isArabic ? 'تأجيل الحكم' : 'Judgment Deferred'}
+                                  {t('cases.judgmentDeferred')}
                                 </span>
                               )}
                             </div>
@@ -266,12 +266,10 @@ export default function CaseDetailsPage() {
                       </div>
                     </div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {isArabic ? 'لا توجد جلسات' : 'No Sessions'}
+                      {t('cases.noSessions')}
                     </h3>
                     <p className="text-muted-foreground">
-                      {isArabic 
-                        ? 'لم يتم تسجيل أي جلسات لهذه القضية بعد.' 
-                        : 'No sessions have been recorded for this case yet.'}
+                      {t('cases.noSessionsDesc')}
                     </p>
                   </div>
                 )}

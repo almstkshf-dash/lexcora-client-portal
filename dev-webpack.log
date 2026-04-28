@@ -1,0 +1,15 @@
+
+> client-app@0.1.0 dev
+> next dev --webpack --port 3051
+
+▲ Next.js 16.2.4 (webpack)
+- Local:         http://localhost:3051
+- Network:       http://172.26.208.1:3051
+- Environments: .env.local
+✓ Ready in 2.0s
+
+○ Compiling / ...
+ GET / 200 in 23.4s (next.js: 22.9s, application-code: 495ms)
+ GET / 200 in 305ms (next.js: 26ms, application-code: 279ms)
+○ Compiling /login ...
+ GET /login 200 in 4.1s (next.js: 4.0s, application-code: 110ms)

@@ -27,11 +27,19 @@
     "usernameRequired": "يرجى إدخال اسم المستخدم وكلمة المرور",
     "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة",
     "troubleLogging": "هل تواجه مشكلة في تسجيل الدخول؟",
-    "contactAdmin": "تواصل مع المسؤول للحصول على المساعدة."
+    "contactAdmin": "تواصل مع المسؤول للحصول على المساعدة.",
+    "passwordMinLength": "يجب أن تكون كلمة المرور 3 أحرف على الأقل",
+    "sessionExpired": "انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى.",
+    "hidePassword": "إخفاء كلمة المرور",
+    "showPassword": "إظهار كلمة المرور",
+    "logoAlt": "شعار مكتب المحاماة",
+    "supportInfo": "نظام ليكسورا ERP من Almstkshf.com",
+    "supportContact": "للدعم الفني: rased@almstkshf.com | اتصال: 0585952035"
   },
   "home": {
     "title": "بوابة الموكل",
     "welcome": "مرحباً، {name}!",
+    "welcomeDesc": "مرحباً بك في بوابة العملاء",
     "userInfo": "معلومات المستخدم",
     "username": "اسم المستخدم",
     "name": "الاسم",
@@ -46,6 +54,7 @@
     "requestsDesc": "إرسال ومتابعة طلباتك",
     "messages": "الرسائل",
     "messagesDesc": "تحقق من رسائلك",
+    "viewButton": "عرض",
     "notAvailable": "غير متوفر"
   },
   "navigation": {
@@ -91,7 +100,11 @@
     "addedDate": "تاريخ الإضافة",
     "ongoingCases": "قضايا جارية",
     "pendingCases": "قضايا قيد الانتظار",
-    "importantCases": "قضايا هامة"
+    "importantCases": "قضايا هامة",
+    "additionalNotes": "ملاحظات إضافية",
+    "sessionNumber": "الجلسة {number}",
+    "details": "تفاصيل",
+    "activeStatus": "نشط"
   },
   "documents": {
     "title": "مستنداتي",
@@ -112,6 +125,10 @@
     "uploading": "جاري الرفع...",
     "successMessage": "تم رفع المستند بنجاح",
     "errorMessage": "فشل رفع المستند",
+    "errorLoadingDocuments": "فشل تحميل المستندات",
+    "untitledDocument": "مستند بدون عنوان",
+    "uploadedBy": "تم الرفع بواسطة:",
+    "viewButton": "عرض",
     "selectFileFirst": "يرجى اختيار ملف أولاً"
   },
   "requests": {
@@ -129,6 +146,29 @@
     "totalRequests": "إجمالي الطلبات",
     "pendingRequests": "قيد المراجعة",
     "approvedRequests": "موافق عليه",
-    "rejectedRequests": "مرفوض"
+    "rejectedRequests": "مرفوض",
+    "newRequest": "طلب جديد",
+    "untitledRequest": "طلب بدون عنوان",
+    "statusApproved": "موافق عليه",
+    "statusRejected": "مرفوض",
+    "statusPending": "قيد المراجعة",
+    "dateLabel": "التاريخ:",
+    "caseNumberLabel": "رقم القضية:",
+    "detailsLabel": "التفاصيل:",
+    "selectRequestTypePlaceholder": "اختر نوع الطلب...",
+    "requestDetailsPlaceholder": "أدخل تفاصيل طلبك...",
+    "submitting": "جاري الإرسال...",
+    "requestTypeRequired": "يرجى اختيار نوع الطلب",
+    "requestDetailsRequired": "يرجى إدخال تفاصيل الطلب",
+    "errorLoadingRequests": "فشل تحميل الطلبات",
+    "errorCreatingRequest": "فشل إنشاء الطلب",
+    "types": {
+      "legalConsultation": "استشارة قانونية",
+      "documentRequest": "طلب مستند",
+      "caseUpdate": "تحديث حالة القضية",
+      "appointment": "موعد",
+      "financialInquiry": "استفسار مالي",
+      "other": "أخرى"
+    }
   }
 }

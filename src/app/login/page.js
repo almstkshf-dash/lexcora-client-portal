@@ -72,7 +72,7 @@ export default function LoginPage() {
     if (!formData.password) {
       newErrors.password = t('auth.passwordRequired');
     } else if (formData.password.length < 3) {
-      newErrors.password = 'يجب أن تكون كلمة المرور 3 أحرف على الأقل';
+      newErrors.password = t('auth.passwordMinLength');
     }
     
     setErrors(newErrors);
@@ -133,7 +133,7 @@ export default function LoginPage() {
         <Card className="shadow-lg bg-white/10 backdrop-blur-sm">
           <CardHeader className="flex items-center flex-col">
             <div className="mx-auto">
-              <Image height='60' width='60' src="/log_in_card_logo.png" alt="Law Office Logo" className="w-full h-full object-contain" />
+              <Image height='60' width='60' src="/log_in_card_logo.png" alt={t('auth.logoAlt')} className="w-full h-full object-contain" />
             </div>
             <h1 className="text-2xl font-bold text-white text-center mb-1">
               LEXCORA
@@ -152,7 +152,7 @@ export default function LoginPage() {
                 {sessionExpired && !error && (
                   <Alert className="bg-amber-50 border-amber-200 text-amber-800">
                     <AlertDescription>
-                      {isArabic ? 'انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى.' : 'Session expired. Please log in again.'}
+                      {t('auth.sessionExpired')}
                     </AlertDescription>
                   </Alert>
                 )}
@@ -199,7 +199,7 @@ export default function LoginPage() {
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white"
                       disabled={loading}
                       tabIndex={-1}
-                      aria-label={showPassword ? (isArabic ? 'إخفاء كلمة المرور' : 'Hide password') : (isArabic ? 'إظهار كلمة المرور' : 'Show password')}
+                      aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -243,10 +243,10 @@ export default function LoginPage() {
           </CardContent>
           <CardFooter className="flex flex-col items-center space-y-1">
             <p className="text-white text-xs font-medium">
-              Lexcora ERP system by Almstkshf.com
+              {t('auth.supportInfo')}
             </p>
             <p className="text-white text-xs">
-              For technical support: rased@almstkshf.com | Call: 0585952035
+              {t('auth.supportContact')}
             </p>
           </CardFooter>
         </Card>

@@ -40,11 +40,11 @@ export default function CasesPage() {
         setCases(response.data || []);
         setStats(response.stats || { total: 0, active: 0, pending: 0, important: 0 });
       } else {
-        setError(response.message || 'Failed to load cases');
+        setError(response.message || t('cases.failedToLoadCases'));
       }
     } catch (err) {
       console.error('Error fetching cases:', err);
-      setError(err.response?.data?.message || 'Failed to load cases');
+      setError(err.response?.data?.message || t('cases.failedToLoadCases'));
     } finally {
       setLoading(false);
     }
@@ -212,7 +212,7 @@ export default function CasesPage() {
                       <div className="flex-1 space-y-4">
                         <div className="flex flex-wrap items-center justify-between gap-4">
                           <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                            {caseItem.topic || (isArabic ? 'قضية بدون عنوان' : 'Untitled Case')}
+                            {caseItem.topic || t('cases.untitledCase')}
                           </h3>
                           <Badge variant="outline" className="bg-muted/30 border-0 px-3 py-1 text-xs font-medium">
                             {t('cases.inProgress')}
@@ -226,10 +226,10 @@ export default function CasesPage() {
                             </div>
                             <div>
                               <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">
-                                {isArabic ? 'رقم القضية' : 'Case Number'}
+                                {t('cases.caseNumberLabel')}
                               </p>
                               <p className="text-sm font-semibold text-foreground">
-                                {caseItem.case_number || (isArabic ? 'غير متوفر' : 'N/A')}
+                                {caseItem.case_number || t('home.notAvailable')}
                               </p>
                             </div>
                           </div>
@@ -240,10 +240,10 @@ export default function CasesPage() {
                             </div>
                             <div>
                               <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">
-                                {isArabic ? 'رقم الملف' : 'File Number'}
+                                {t('cases.fileNumberLabel')}
                               </p>
                               <p className="text-sm font-semibold text-foreground">
-                                {caseItem.file_number || (isArabic ? 'غير متوفر' : 'N/A')}
+                                {caseItem.file_number || t('home.notAvailable')}
                               </p>
                             </div>
                           </div>
@@ -257,7 +257,7 @@ export default function CasesPage() {
                                 {t('cases.addedDate')}
                               </p>
                               <p className="text-sm font-semibold text-foreground">
-                                {caseItem.created_at ? new Date(caseItem.created_at).toLocaleDateString(isArabic ? 'ar-EG' : 'en-US') : (isArabic ? 'غير متوفر' : 'N/A')}
+                                {caseItem.created_at ? new Date(caseItem.created_at).toLocaleDateString(isArabic ? 'ar-EG' : 'en-US') : t('home.notAvailable')}
                               </p>
                             </div>
                           </div>
@@ -273,7 +273,7 @@ export default function CasesPage() {
                             router.push(`/cases/${caseItem.id}`);
                           }}
                         >
-                          <span className="font-semibold">{isArabic ? 'التفاصيل' : 'Details'}</span>
+                          <span className="font-semibold">{t('cases.details')}</span>
                           <ChevronRight className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${isArabic ? 'rotate-180 group-hover:-translate-x-1' : ''}`} />
                         </Button>
                       </div>
@@ -318,7 +318,7 @@ export default function CasesPage() {
                       <FileText className="w-6 h-6 text-green-600" />
                     </div>
                     <Badge variant="secondary" className="bg-green-500/10 text-green-600 border-0">
-                      {isArabic ? 'نشط' : 'Active'}
+                      {t('cases.activeStatus')}
                     </Badge>
                   </div>
                   <p className="text-sm text-muted-foreground font-medium mb-1">

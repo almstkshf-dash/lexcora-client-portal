@@ -35,11 +35,11 @@ export default function DocumentsPage() {
       if (response.success) {
         setDocuments(response.data || []);
       } else {
-        setError(response.message || 'Failed to load documents');
+        setError(response.message || t('documents.errorLoadingDocuments'));
       }
     } catch (err) {
       console.error('Error fetching documents:', err);
-      setError(err.response?.data?.message || 'Failed to load documents');
+      setError(err.response?.data?.message || t('documents.errorLoadingDocuments'));
     } finally {
       setLoading(false);
     }
@@ -155,13 +155,13 @@ export default function DocumentsPage() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-sm font-bold text-gray-900 break-words line-clamp-2 mb-1">
-                            {doc.document_name || (isArabic ? 'مستند بدون عنوان' : 'Untitled Document')}
+                            {doc.document_name || t('documents.untitledDocument')}
                           </h3>
                           {doc.uploaded_by_name && (
                             <div className="flex items-center gap-1 text-xs text-gray-500 mt-2">
                               <User className="w-3 h-3" />
                               <span>
-                                {isArabic ? 'تم الرفع بواسطة:' : 'Uploaded by:'} {doc.uploaded_by_name}
+                                {t('documents.uploadedBy')} {doc.uploaded_by_name}
                               </span>
                             </div>
                           )}
@@ -173,7 +173,7 @@ export default function DocumentsPage() {
                         variant="default"
                       >
                         <Download className="w-4 h-4" />
-                        {isArabic ? 'عرض' : 'View'}
+                        {t('documents.viewButton')}
                       </Button>
                     </CardContent>
                   </Card>

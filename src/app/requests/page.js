@@ -32,21 +32,23 @@ export default function RequestsPage() {
   });
 
   // Request type options
-  const requestTypes = isArabic ? [
-    { value: 'استشارة قانونية', label: 'استشارة قانونية' },
-    { value: 'طلب مستند', label: 'طلب مستند' },
-    { value: 'تحديث حالة القضية', label: 'تحديث حالة القضية' },
-    { value: 'موعد', label: 'موعد' },
-    { value: 'استفسار مالي', label: 'استفسار مالي' },
-    { value: 'أخرى', label: 'أخرى' }
-  ] : [
-    { value: 'Legal Consultation', label: 'Legal Consultation' },
-    { value: 'Document Request', label: 'Document Request' },
-    { value: 'Case Update', label: 'Case Update' },
-    { value: 'Appointment', label: 'Appointment' },
-    { value: 'Financial Inquiry', label: 'Financial Inquiry' },
-    { value: 'Other', label: 'Other' }
-  ];
+  const requestTypes = isArabic
+    ? [
+        { value: 'استشارة قانونية', label: t('requests.types.legalConsultation') },
+        { value: 'طلب مستند', label: t('requests.types.documentRequest') },
+        { value: 'تحديث حالة القضية', label: t('requests.types.caseUpdate') },
+        { value: 'موعد', label: t('requests.types.appointment') },
+        { value: 'استفسار مالي', label: t('requests.types.financialInquiry') },
+        { value: 'أخرى', label: t('requests.types.other') }
+      ]
+    : [
+        { value: 'Legal Consultation', label: t('requests.types.legalConsultation') },
+        { value: 'Document Request', label: t('requests.types.documentRequest') },
+        { value: 'Case Update', label: t('requests.types.caseUpdate') },
+        { value: 'Appointment', label: t('requests.types.appointment') },
+        { value: 'Financial Inquiry', label: t('requests.types.financialInquiry') },
+        { value: 'Other', label: t('requests.types.other') }
+      ];
 
   useEffect(() => {
     fetchClientRequests();
@@ -61,11 +63,11 @@ export default function RequestsPage() {
       if (response.success) {
         setRequests(response.data || []);
       } else {
-        setError(response.message || 'Failed to load requests');
+        setError(response.message || t('requests.errorLoadingRequests'));
       }
     } catch (err) {
       console.error('Error fetching requests:', err);
-      setError(err.response?.data?.message || 'Failed to load requests');
+      setError(err.response?.data?.message || t('requests.errorLoadingRequests'));
     } finally {
       setLoading(false);
     }
@@ -83,12 +85,12 @@ export default function RequestsPage() {
     e.preventDefault();
     
     if (!formData.request_type) {
-      setError(isArabic ? 'يرجى اختيار نوع الطلب' : 'Please select a request type');
+      setError(t('requests.requestTypeRequired'));
       return;
     }
     
     if (!formData.request_title.trim()) {
-      setError(isArabic ? 'يرجى إدخال تفاصيل الطلب' : 'Please enter request details');
+      setError(t('requests.requestDetailsRequired'));
       return;
     }
 
@@ -110,11 +112,11 @@ export default function RequestsPage() {
         // Refresh requests list
         await fetchClientRequests();
       } else {
-        setError(response.message || 'Failed to create request');
+        setError(response.message || t('requests.errorCreatingRequest'));
       }
     } catch (err) {
       console.error('Error creating request:', err);
-      setError(err.response?.data?.message || 'Failed to create request');
+      setError(err.response?.data?.message || t('requests.errorCreatingRequest'));
     } finally {
       setSubmitting(false);
     }
@@ -264,21 +266,21 @@ export default function RequestsPage() {
       return (
         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-green-100 text-green-700 border border-green-200 shadow-sm">
           <CheckCircle className="w-3.5 h-3.5" />
-          {isArabic ? 'موافق عليه' : 'Approved'}
+          {t('requests.statusApproved')}
         </div>
       );
     } else if (status === 'rejected') {
       return (
         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-red-100 text-red-700 border border-red-200 shadow-sm">
           <XCircle className="w-3.5 h-3.5" />
-          {isArabic ? 'مرفوض' : 'Rejected'}
+          {t('requests.statusRejected')}
         </div>
       );
     }
     return (
       <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200 shadow-sm">
         <Clock className="w-3.5 h-3.5" />
-        {isArabic ? 'قيد المراجعة' : 'Pending'}
+        {t('requests.statusPending')}
       </div>
     );
   };
@@ -303,7 +305,7 @@ export default function RequestsPage() {
                 className="gap-2 hover:scale-105 transition-transform shadow-md"
               >
                 <Plus className="w-4 h-4" />
-                {isArabic ? 'طلب جديد' : 'New Request'}
+                {t('requests.newRequest')}
               </Button>
             </div>
           </CardHeader>
@@ -346,7 +348,7 @@ export default function RequestsPage() {
                     className="gap-2 hover:scale-105 transition-transform shadow-md"
                   >
                     <Plus className="w-4 h-4" />
-                    {isArabic ? 'إنشاء طلب' : 'Create Request'}
+                    {t('requests.newRequest')}
                   </Button>
                 </CardContent>
               </Card>
@@ -364,7 +366,7 @@ export default function RequestsPage() {
                         </div>
                         <div>
                           <h3 className={`text-lg font-semibold ${colors.text}`}>
-                            {request.type || (isArabic ? 'طلب بدون عنوان' : 'Untitled Request')}
+                            {request.type || t('requests.untitledRequest')}
                           </h3>
                         </div>
                       </div>
@@ -375,10 +377,10 @@ export default function RequestsPage() {
                       <div className={`flex items-center gap-2 text-sm ${colors.textSecondary}`}>
                         <Calendar className={`w-4 h-4 ${colors.textMuted}`} />
                         <span className="font-medium">
-                          {isArabic ? 'التاريخ:' : 'Date:'}
+                          {t('requests.dateLabel')}
                         </span>
                         <span>
-                          {request.date ? new Date(request.date).toLocaleDateString() : (isArabic ? 'غير متوفر' : 'N/A')}
+                          {request.date ? new Date(request.date).toLocaleDateString() : t('home.notAvailable')}
                         </span>
                       </div>
                       
@@ -386,7 +388,7 @@ export default function RequestsPage() {
                         <div className={`flex items-center gap-2 text-sm ${colors.textSecondary}`}>
                           <FileText className={`w-4 h-4 ${colors.textMuted}`} />
                           <span className="font-medium">
-                            {isArabic ? 'رقم القضية:' : 'Case Number:'}
+                            {t('requests.caseNumberLabel')}
                           </span>
                           <span>{request.case_number}</span>
                         </div>
@@ -396,7 +398,7 @@ export default function RequestsPage() {
                         <div className={`mt-4 p-4 ${colors.bg} rounded-lg border ${colors.border} transition-colors duration-300`}>
                           <p className={`text-sm font-medium ${colors.text} mb-2 flex items-center gap-2`}>
                             <User className={`w-4 h-4 ${colors.iconColor}`} />
-                            {isArabic ? 'التفاصيل:' : 'Details:'}
+                            {t('requests.detailsLabel')}
                           </p>
                           <p className={`text-sm ${colors.textSecondary} leading-relaxed`}>
                             {request.details}
@@ -513,7 +515,7 @@ export default function RequestsPage() {
                       onValueChange={(value) => setFormData(prev => ({ ...prev, request_type: value }))}
                     >
                       <SelectTrigger className={`${colors.border} ${colors.bgSecondary} ${colors.text}`}>
-                        <SelectValue placeholder={isArabic ? 'اختر نوع الطلب...' : 'Select request type...'} />
+                        <SelectValue placeholder={t('requests.selectRequestTypePlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
                         {requestTypes.map((type) => (
@@ -535,7 +537,7 @@ export default function RequestsPage() {
                       onChange={handleInputChange}
                       rows="4"
                       className={`w-full px-3 py-2 border ${colors.border} ${colors.bgSecondary} ${colors.text} rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 resize-none transition-all duration-200`}
-                      placeholder={isArabic ? 'أدخل تفاصيل طلبك...' : 'Enter your request details...'}
+                      placeholder={t('requests.requestDetailsPlaceholder')}
                       required
                     />
                   </div>
@@ -575,7 +577,7 @@ export default function RequestsPage() {
                     {submitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                        {isArabic ? 'جاري الإرسال...' : 'Submitting...'}
+                        {t('requests.submitting')}
                       </>
                     ) : (
                       t('requests.submit')

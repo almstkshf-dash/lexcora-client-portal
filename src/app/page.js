@@ -62,7 +62,7 @@ export default function Home() {
               {t('home.welcome', { name: user?.name || user?.username })}
             </CardTitle>
             <CardDescription>
-              {isArabic ? 'مرحباً بك في بوابة العملاء' : 'Welcome to the Client Portal'}
+              {t('home.welcomeDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -147,7 +147,7 @@ export default function Home() {
                           router.push(link.route);
                         }}
                       >
-                        {isArabic ? 'عرض' : 'View'}
+                        {t('home.viewButton')}
                       </Button>
                     </div>
                   </CardContent>

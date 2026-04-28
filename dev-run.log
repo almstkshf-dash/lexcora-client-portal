@@ -1,0 +1,15 @@
+
+> client-app@0.1.0 dev
+> next dev --turbopack
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3002
+- Network:       http://172.26.208.1:3002
+- Environments: .env.local
+✓ Ready in 5.0s
+Creating turbopack project {
+  dir: 'C:\\Users\\ceo\\OneDrive\\Desktop\\ليكسورا\\lexcora\\lexcora-client-portal',
+  testMode: true
+}
+
+[?25h

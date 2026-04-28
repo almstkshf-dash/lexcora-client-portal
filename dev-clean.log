@@ -1,0 +1,14 @@
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3050
+- Network:       http://172.26.208.1:3050
+- Environments: .env.local
+✓ Ready in 2.4s
+Creating turbopack project {
+  dir: 'C:\\Users\\ceo\\OneDrive\\Desktop\\ليكسورا\\lexcora\\lexcora-client-portal',
+  testMode: true
+}
+
+○ Compiling / ...
+○ Compiling /_error ...
+ GET / 500 in 14.6s (next.js: 13.6s, application-code: 970ms)
+[?25h

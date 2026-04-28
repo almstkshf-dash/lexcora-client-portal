@@ -27,11 +27,19 @@
     "usernameRequired": "Please enter both username and password",
     "invalidCredentials": "Invalid username or password",
     "troubleLogging": "Having trouble logging in?",
-    "contactAdmin": "Contact your administrator for assistance."
+    "contactAdmin": "Contact your administrator for assistance.",
+    "passwordMinLength": "Password must be at least 3 characters",
+    "sessionExpired": "Session expired. Please log in again.",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password",
+    "logoAlt": "Law Office Logo",
+    "supportInfo": "Lexcora ERP system by Almstkshf.com",
+    "supportContact": "For technical support: rased@almstkshf.com | Call: 0585952035"
   },
   "home": {
     "title": "Client Portal",
     "welcome": "Welcome, {name}!",
+    "welcomeDesc": "Welcome to the Client Portal",
     "userInfo": "User Information",
     "username": "Username",
     "name": "Name",
@@ -46,6 +54,7 @@
     "requestsDesc": "Submit and track your requests",
     "messages": "Messages",
     "messagesDesc": "Check your messages",
+    "viewButton": "View",
     "notAvailable": "N/A"
   },
   "navigation": {
@@ -91,7 +100,11 @@
     "addedDate": "Added Date",
     "ongoingCases": "Ongoing Cases",
     "pendingCases": "Pending Cases",
-    "importantCases": "Important Cases"
+    "importantCases": "Important Cases",
+    "additionalNotes": "Additional Notes",
+    "sessionNumber": "Session {number}",
+    "details": "Details",
+    "activeStatus": "Active"
   },
   "documents": {
     "title": "My Documents",
@@ -112,6 +125,10 @@
     "uploading": "Uploading...",
     "successMessage": "Document uploaded successfully",
     "errorMessage": "Failed to upload document",
+    "errorLoadingDocuments": "Failed to load documents",
+    "untitledDocument": "Untitled Document",
+    "uploadedBy": "Uploaded by:",
+    "viewButton": "View",
     "selectFileFirst": "Please select a file first"
   },
   "requests": {
@@ -129,6 +146,29 @@
     "totalRequests": "Total Requests",
     "pendingRequests": "Pending",
     "approvedRequests": "Approved",
-    "rejectedRequests": "Rejected"
+    "rejectedRequests": "Rejected",
+    "newRequest": "New Request",
+    "untitledRequest": "Untitled Request",
+    "statusApproved": "Approved",
+    "statusRejected": "Rejected",
+    "statusPending": "Pending",
+    "dateLabel": "Date:",
+    "caseNumberLabel": "Case Number:",
+    "detailsLabel": "Details:",
+    "selectRequestTypePlaceholder": "Select request type...",
+    "requestDetailsPlaceholder": "Enter your request details...",
+    "submitting": "Submitting...",
+    "requestTypeRequired": "Please select a request type",
+    "requestDetailsRequired": "Please enter request details",
+    "errorLoadingRequests": "Failed to load requests",
+    "errorCreatingRequest": "Failed to create request",
+    "types": {
+      "legalConsultation": "Legal Consultation",
+      "documentRequest": "Document Request",
+      "caseUpdate": "Case Update",
+      "appointment": "Appointment",
+      "financialInquiry": "Financial Inquiry",
+      "other": "Other"
+    }
   }
 }
