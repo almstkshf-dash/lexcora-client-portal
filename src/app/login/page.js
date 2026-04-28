@@ -15,6 +15,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from '../../hooks/useTranslation';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -28,7 +29,18 @@ export default function LoginPage() {
   
   const { login, loading, isAuthenticated } = useAuth();
   const { t } = useTranslation();
+  const { isArabic, direction } = useLanguage();
   const router = useRouter();
+  const [sessionExpired, setSessionExpired] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('expired') === 'true') {
+        setSessionExpired(true);
+      }
+    }
+  }, []);
 
   // Load saved credentials on mount
   useEffect(() => {
@@ -115,7 +127,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4 bg-cover bg-center bg-no-repeat bg-fixed w-full" style={{ backgroundImage: "url('/background.jpg')", backgroundSize: 'cover' }} dir="rtl">
+    <main className="min-h-screen py-8 px-4 bg-cover bg-center bg-no-repeat bg-fixed w-full" style={{ backgroundImage: "url('/background.jpg')", backgroundSize: 'cover' }} dir={direction}>
       <div className="w-full max-w-md mx-auto">
         {/* Login Card */}
         <Card className="shadow-lg bg-white/10 backdrop-blur-sm">
@@ -134,6 +146,14 @@ export default function LoginPage() {
                 {error && (
                   <Alert variant="destructive">
                     <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+
+                {sessionExpired && !error && (
+                  <Alert className="bg-amber-50 border-amber-200 text-amber-800">
+                    <AlertDescription>
+                      {isArabic ? 'انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى.' : 'Session expired. Please log in again.'}
+                    </AlertDescription>
                   </Alert>
                 )}
                 
@@ -179,6 +199,7 @@ export default function LoginPage() {
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white"
                       disabled={loading}
                       tabIndex={-1}
+                      aria-label={showPassword ? (isArabic ? 'إخفاء كلمة المرور' : 'Hide password') : (isArabic ? 'إظهار كلمة المرور' : 'Show password')}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -230,6 +251,6 @@ export default function LoginPage() {
           </CardFooter>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }

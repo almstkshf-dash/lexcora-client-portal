@@ -35,3 +35,19 @@ export const getClientDocuments = async () => {
     throw error;
   }
 };
+
+/**
+ * Upload a document for the authenticated client
+ */
+export const uploadDocument = async (formData) => {
+  try {
+    const response = await api.post('/client-auth/documents/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

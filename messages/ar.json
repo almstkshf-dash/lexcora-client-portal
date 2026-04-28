@@ -99,7 +99,20 @@
     "noDocuments": "لا توجد مستندات",
     "noDocumentsDesc": "ليس لديك أي مستندات حتى الآن.",
     "statistics": "الإحصائيات",
-    "totalDocuments": "إجمالي المستندات"
+    "totalDocuments": "إجمالي المستندات",
+    "uploadTitle": "رفع مستند جديد",
+    "uploadDesc": "يمكنك رفع ملفات PDF أو صور متعلقة بقضيتك",
+    "selectFile": "اختر الملف",
+    "clickToSelect": "انقر هنا لاختيار ملف",
+    "maxSize": "PDF, JPG, PNG (بحد أقصى 10 ميجابايت)",
+    "relatedCase": "القضية المرتبطة (اختياري)",
+    "selectCase": "اختر القضية",
+    "noSpecificCase": "لا توجد قضية محددة",
+    "uploadButton": "رفع المستند",
+    "uploading": "جاري الرفع...",
+    "successMessage": "تم رفع المستند بنجاح",
+    "errorMessage": "فشل رفع المستند",
+    "selectFileFirst": "يرجى اختيار ملف أولاً"
   },
   "requests": {
     "title": "طلباتي",

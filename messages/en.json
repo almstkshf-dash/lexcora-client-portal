@@ -99,7 +99,20 @@
     "noDocuments": "No Documents Found",
     "noDocumentsDesc": "You don't have any documents yet.",
     "statistics": "Statistics",
-    "totalDocuments": "Total Documents"
+    "totalDocuments": "Total Documents",
+    "uploadTitle": "Upload New Document",
+    "uploadDesc": "Upload PDF files or images related to your case",
+    "selectFile": "Select File",
+    "clickToSelect": "Click here to select a file",
+    "maxSize": "PDF, JPG, PNG (Max 10MB)",
+    "relatedCase": "Related Case (Optional)",
+    "selectCase": "Select a case",
+    "noSpecificCase": "No specific case",
+    "uploadButton": "Upload Document",
+    "uploading": "Uploading...",
+    "successMessage": "Document uploaded successfully",
+    "errorMessage": "Failed to upload document",
+    "selectFileFirst": "Please select a file first"
   },
   "requests": {
     "title": "My Requests",

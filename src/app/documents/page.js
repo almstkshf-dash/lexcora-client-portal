@@ -11,6 +11,7 @@ import { ArrowLeft, FileText, Download, User, Loader2, File } from 'lucide-react
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import DocumentUpload from '../../components/DocumentUpload';
 
 export default function DocumentsPage() {
   const { user, logout } = useAuth();
@@ -115,6 +116,11 @@ export default function DocumentsPage() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
+
+        {/* Upload Section */}
+        <div className="mb-8">
+          <DocumentUpload onUploadSuccess={fetchClientDocuments} />
+        </div>
 
         {/* Documents List */}
         {!loading && !error && (

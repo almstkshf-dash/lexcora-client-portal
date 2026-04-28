@@ -54,7 +54,8 @@ api.interceptors.response.use(
         localStorage.removeItem('authToken');
         // Redirect to login if not already there
         if (!window.location.pathname.includes('/login')) {
-          window.location.href = '/login';
+          const currentPath = window.location.pathname;
+          window.location.href = `/login?expired=true&redirect=${encodeURIComponent(currentPath)}`;
         }
       }
     }
