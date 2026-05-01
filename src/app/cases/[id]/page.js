@@ -7,7 +7,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import Header from '../../../components/Header';
 import { getClientCaseById } from '../../services/api/cases';
-import { ArrowLeft, FileText, Calendar, User, Hash, AlertCircle, CheckCircle, Clock, Link as LinkIcon, Loader2 } from 'lucide-react';
+import { ArrowLeft, FileText, Calendar, User, Hash, AlertCircle, CheckCircle, Clock, Link as LinkIcon, Loader2, DollarSign, TrendingUp, TrendingDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -273,6 +273,44 @@ export default function CaseDetailsPage() {
                     </p>
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Financial Summary Section */}
+        {!loading && !error && caseData && caseData.financial_summary && (
+          <div className="mt-8">
+            <Card className="border-0 shadow-lg overflow-hidden">
+              <CardHeader className="bg-white border-b">
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <DollarSign className="w-6 h-6 text-primary" />
+                  {t('finance.caseSummary')}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <InfoRow 
+                    icon={TrendingUp}
+                    label={t('finance.income')} 
+                    value={new Intl.NumberFormat(isArabic ? 'ar-AE' : 'en-US', { style: 'currency', currency: 'AED' }).format(caseData.financial_summary.income || 0)} 
+                  />
+                  <InfoRow 
+                    icon={TrendingDown}
+                    label={t('finance.expense')} 
+                    value={new Intl.NumberFormat(isArabic ? 'ar-AE' : 'en-US', { style: 'currency', currency: 'AED' }).format(caseData.financial_summary.expense || 0)} 
+                  />
+                  <InfoRow 
+                    icon={AlertCircle}
+                    label={t('finance.receivable')} 
+                    value={new Intl.NumberFormat(isArabic ? 'ar-AE' : 'en-US', { style: 'currency', currency: 'AED' }).format(caseData.financial_summary.receivable || 0)} 
+                  />
+                  <InfoRow 
+                    icon={CheckCircle}
+                    label={t('finance.profit')} 
+                    value={new Intl.NumberFormat(isArabic ? 'ar-AE' : 'en-US', { style: 'currency', currency: 'AED' }).format(caseData.financial_summary.profit || 0)} 
+                  />
+                </div>
               </CardContent>
             </Card>
           </div>

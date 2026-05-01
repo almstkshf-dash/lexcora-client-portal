@@ -11,7 +11,8 @@
     "edit": "تعديل",
     "add": "إضافة",
     "search": "بحث",
-    "close": "إغلاق"
+    "close": "إغلاق",
+    "currency": "عملة"
   },
   "auth": {
     "login": "تسجيل الدخول",
@@ -54,6 +55,8 @@
     "requestsDesc": "إرسال ومتابعة طلباتك",
     "messages": "الرسائل",
     "messagesDesc": "تحقق من رسائلك",
+    "finance": "المالية",
+    "financeDesc": "عرض الفواتير والملخص المالي",
     "viewButton": "عرض",
     "notAvailable": "غير متوفر"
   },
@@ -170,5 +173,34 @@
       "financialInquiry": "استفسار مالي",
       "other": "أخرى"
     }
+  },
+  "finance": {
+    "title": "المالية",
+    "description": "عرض الفواتير والمدفوعات ورصيد الحساب",
+    "caseSummary": "الملخص المالي للقضية",
+    "income": "إجمالي المدفوع",
+    "expense": "مصاريف القضية",
+    "profit": "الرصيد الصافي",
+    "receivable": "إجمالي المستحقات",
+    "payable": "الالتزامات",
+    "totalBalance": "إجمالي الرصيد",
+    "noFinanceData": "لا توجد بيانات مالية متاحة لهذه القضية.",
+    "aed": "درهم إماراتي",
+    "invoices": "الفواتير",
+    "recentInvoices": "آخر الفواتير",
+    "noInvoices": "لم يتم العثور على فواتير",
+    "noInvoicesDesc": "لا توجد فواتير مسجلة لديك حتى الآن.",
+    "invoiceNumber": "رقم الفاتورة",
+    "invoiceDate": "التاريخ",
+    "totalAmount": "المبلغ الإجمالي",
+    "status": "الحالة",
+    "paid": "مدفوعة",
+    "unpaid": "غير مدفوعة",
+    "partial": "مدفوعة جزئياً",
+    "incomeDesc": "إجمالي المبالغ التي تم دفعها للمكتب",
+    "receivableDesc": "إجمالي المبالغ المتبقية المطلوب دفعها",
+    "expenseDesc": "إجمالي المصاريف المحتسبة على قضاياك",
+    "errorLoadingData": "فشل تحميل البيانات المالية",
+    "exportAll": "تصدير الكل"
   }
 }

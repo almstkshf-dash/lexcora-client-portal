@@ -11,7 +11,8 @@
     "edit": "Edit",
     "add": "Add",
     "search": "Search",
-    "close": "Close"
+    "close": "Close",
+    "currency": "Currency"
   },
   "auth": {
     "login": "Login",
@@ -54,6 +55,8 @@
     "requestsDesc": "Submit and track your requests",
     "messages": "Messages",
     "messagesDesc": "Check your messages",
+    "finance": "Finance",
+    "financeDesc": "View your invoices and financial summary",
     "viewButton": "View",
     "notAvailable": "N/A"
   },
@@ -170,5 +173,34 @@
       "financialInquiry": "Financial Inquiry",
       "other": "Other"
     }
+  },
+  "finance": {
+    "title": "My Finance",
+    "description": "View your invoices, payments, and account balance",
+    "caseSummary": "Case Financial Summary",
+    "income": "Total Paid",
+    "expense": "Case Expenses",
+    "profit": "Net Balance",
+    "receivable": "Total Outstanding",
+    "payable": "Liabilities",
+    "totalBalance": "Total Balance",
+    "noFinanceData": "No financial data available for this case.",
+    "aed": "AED",
+    "invoices": "Invoices",
+    "recentInvoices": "Recent Invoices",
+    "noInvoices": "No Invoices Found",
+    "noInvoicesDesc": "You do not have any invoices recorded yet.",
+    "invoiceNumber": "Invoice #",
+    "invoiceDate": "Date",
+    "totalAmount": "Total Amount",
+    "status": "Status",
+    "paid": "Paid",
+    "unpaid": "Unpaid",
+    "partial": "Partial",
+    "incomeDesc": "Total payments made to the firm",
+    "receivableDesc": "Total outstanding amount to be paid",
+    "expenseDesc": "Total expenses charged to your cases",
+    "errorLoadingData": "Failed to load financial data",
+    "exportAll": "Export All"
   }
 }

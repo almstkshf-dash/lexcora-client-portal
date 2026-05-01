@@ -36,6 +36,13 @@ export default function Home() {
       icon: FileQuestion,
       route: '/requests',
       color: 'purple'
+    },
+    {
+      title: t('home.finance'),
+      description: t('home.financeDesc'),
+      icon: FileText,
+      route: '/finance',
+      color: 'orange'
     }
   ];
 
@@ -43,7 +50,8 @@ export default function Home() {
     const colors = {
       blue: 'text-blue-600 bg-blue-50 hover:bg-blue-100 border-blue-200',
       green: 'text-green-600 bg-green-50 hover:bg-green-100 border-green-200',
-      purple: 'text-purple-600 bg-purple-50 hover:bg-purple-100 border-purple-200'
+      purple: 'text-purple-600 bg-purple-50 hover:bg-purple-100 border-purple-200',
+      orange: 'text-orange-600 bg-orange-50 hover:bg-orange-100 border-orange-200'
     };
     return colors[color] || colors.blue;
   };
