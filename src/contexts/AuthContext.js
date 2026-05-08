@@ -14,13 +14,37 @@ export const useAuth = () => {
   return context;
 };
 
+const USER_KEY = 'authUser';
+
+const saveUser = (user) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+};
+
+const loadUser = () => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(USER_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+};
+
+const clearUser = () => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem('authToken');
+  }
+};
+
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => loadUser());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  // Check if user is logged in on mount
   useEffect(() => {
     checkAuth();
   }, []);
@@ -29,22 +53,34 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
       if (!token) {
+        setUser(null);
+        clearUser();
         setLoading(false);
         return;
       }
+
+      // If we already have a cached user, mark as loaded immediately
+      // and silently refresh in background
+      const cached = loadUser();
+      if (cached) {
+        setUser(cached);
+        setLoading(false);
+      }
+
+      // Try to refresh user from server
       const response = await getCurrentUser();
       if (response && response.success && response.data) {
         setUser(response.data);
+        saveUser(response.data);
       }
     } catch (err) {
-      // Only clear the token if it's explicitly invalid (401)
-      // Do NOT clear on network errors or cold-start failures
       const status = err?.response?.status;
       if (status === 401) {
-        if (typeof window !== 'undefined') localStorage.removeItem('authToken');
+        // Token is genuinely invalid — clear everything
+        clearUser();
         setUser(null);
       }
-      // For any other error (500, network), keep the token and stay logged in
+      // For other errors (network, 500), keep the cached user
     } finally {
       setLoading(false);
     }
@@ -54,12 +90,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setError(null);
       setLoading(true);
-      
+
       const response = await loginUser(username, password);
-      
+
       if (response && response.success && response.client) {
         setUser(response.client);
-        router.push('/'); // Redirect to home page
+        saveUser(response.client);
+        router.push('/');
         return { success: true };
       } else {
         setError(response.message || 'Login failed');
@@ -78,9 +115,9 @@ export const AuthProvider = ({ children }) => {
     try {
       await logoutUser();
     } catch (err) {
-      // ignore logout API errors
+      // ignore
     } finally {
-      if (typeof window !== 'undefined') localStorage.removeItem('authToken');
+      clearUser();
       setUser(null);
       router.push('/login');
     }
@@ -92,7 +129,7 @@ export const AuthProvider = ({ children }) => {
     error,
     login,
     logout,
-    isAuthenticated: !!user
+    isAuthenticated: !!user,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
