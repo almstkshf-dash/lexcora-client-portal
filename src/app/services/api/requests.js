@@ -1,20 +1,19 @@
 import api from './axiosInstance';
 
-/**
- * Get all requests for the authenticated client
- */
 export const getClientRequests = async () => {
   try {
     const response = await api.get('/client-auth/requests');
-    return response.data;
+    const body = response.data;
+    return {
+      success: body.success,
+      data: Array.isArray(body.data) ? body.data : [],
+      message: body.message,
+    };
   } catch (error) {
     throw error;
   }
 };
 
-/**
- * Create a new request
- */
 export const createClientRequest = async (requestData) => {
   try {
     const response = await api.post('/client-auth/requests', requestData);

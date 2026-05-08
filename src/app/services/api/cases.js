@@ -1,20 +1,21 @@
 import api from './axiosInstance';
 
-/**
- * Get all cases for the authenticated client
- */
 export const getClientCases = async () => {
   try {
     const response = await api.get('/client-auth/cases');
-    return response.data;
+    const body = response.data;
+    // res.success() shape: { success, data: [...], stats, pagination }
+    return {
+      success: body.success,
+      data: Array.isArray(body.data) ? body.data : [],
+      stats: body.stats || { total: 0, active: 0, pending: 0, important: 0 },
+      message: body.message,
+    };
   } catch (error) {
     throw error;
   }
 };
 
-/**
- * Get specific case details by ID
- */
 export const getClientCaseById = async (caseId) => {
   try {
     const response = await api.get(`/client-auth/cases/${caseId}`);
@@ -24,27 +25,24 @@ export const getClientCaseById = async (caseId) => {
   }
 };
 
-/**
- * Get all documents for the authenticated client
- */
 export const getClientDocuments = async () => {
   try {
     const response = await api.get('/client-auth/documents');
-    return response.data;
+    const body = response.data;
+    return {
+      success: body.success,
+      data: Array.isArray(body.data) ? body.data : [],
+      message: body.message,
+    };
   } catch (error) {
     throw error;
   }
 };
 
-/**
- * Upload a document for the authenticated client
- */
 export const uploadDocument = async (formData) => {
   try {
     const response = await api.post('/client-auth/documents/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
     return response.data;
   } catch (error) {
