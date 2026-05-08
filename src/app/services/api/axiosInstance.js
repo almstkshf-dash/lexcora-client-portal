@@ -23,12 +23,14 @@ api.interceptors.request.use(
 );
 
 // On 401 → clear token and redirect to login
+// Only redirect if we actually had a token (i.e. session expired), not on initial unauthenticated load
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (typeof window !== "undefined" && error.response?.status === 401) {
+      const hadToken = !!localStorage.getItem("authToken");
       localStorage.removeItem("authToken");
-      if (!window.location.pathname.includes("/login")) {
+      if (hadToken && !window.location.pathname.includes("/login")) {
         const currentPath = window.location.pathname;
         window.location.href = `/login?expired=true&redirect=${encodeURIComponent(currentPath)}`;
       }

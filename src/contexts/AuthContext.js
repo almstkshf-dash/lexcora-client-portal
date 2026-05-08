@@ -73,10 +73,10 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await logoutUser();
-      setUser(null);
-      router.push('/login');
     } catch (err) {
-      // Even if logout fails, clear local state
+      // ignore logout API errors
+    } finally {
+      if (typeof window !== 'undefined') localStorage.removeItem('authToken');
       setUser(null);
       router.push('/login');
     }

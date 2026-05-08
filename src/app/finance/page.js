@@ -52,15 +52,19 @@ export default function FinancePage() {
     try {
       setLoading(true);
       setError(null);
-      
-      const [summaryRes, invoicesRes] = await Promise.all([
+
+      const [summaryRes, invoicesRes] = await Promise.allSettled([
         getClientFinanceSummary(),
         getClientInvoices()
       ]);
-      
-      if (summaryRes.success) setSummary(summaryRes.data);
-      if (invoicesRes.success) setInvoices(invoicesRes.data || []);
-      
+
+      if (summaryRes.status === 'fulfilled' && summaryRes.value?.success) {
+        setSummary(summaryRes.value.data);
+      }
+      if (invoicesRes.status === 'fulfilled' && invoicesRes.value?.success) {
+        setInvoices(invoicesRes.value.data || []);
+      }
+
     } catch (err) {
       console.error('Error fetching finance data:', err);
       setError(t('finance.errorLoadingData') || 'Failed to load financial data');
