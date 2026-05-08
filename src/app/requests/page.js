@@ -353,7 +353,7 @@ export default function RequestsPage() {
                 </CardContent>
               </Card>
             ) : (
-              requests.map((request) => (
+              (Array.isArray(requests) ? requests : []).map((request) => (
                 <Card
                   key={request.id}
                   className={`${colors.cardBg} ${colors.border} border ${colors.shadow} transition-all duration-300 hover:scale-[1.01]`}
@@ -442,7 +442,7 @@ export default function RequestsPage() {
                     </p>
                   </div>
                   <p className={`text-2xl font-bold ${colors.text}`}>
-                    {requests.filter(r => r.status === 'pending').length}
+                    {(Array.isArray(requests) ? requests : []).filter(r => r.status === 'pending').length}
                   </p>
                 </div>
                 <div className={`p-4 ${colors.bg} rounded-lg border ${colors.border} ${colors.bgHover} transition-all duration-200 hover:scale-105`}>
@@ -455,7 +455,7 @@ export default function RequestsPage() {
                     </p>
                   </div>
                   <p className={`text-2xl font-bold ${colors.text}`}>
-                    {requests.filter(r => r.status === 'approved').length}
+                    {(Array.isArray(requests) ? requests : []).filter(r => r.status === 'approved').length}
                   </p>
                 </div>
                 <div className={`p-4 ${colors.bg} rounded-lg border ${colors.border} ${colors.bgHover} transition-all duration-200 hover:scale-105`}>
@@ -468,7 +468,7 @@ export default function RequestsPage() {
                     </p>
                   </div>
                   <p className={`text-2xl font-bold ${colors.text}`}>
-                    {requests.filter(r => r.status === 'rejected').length}
+                    {(Array.isArray(requests) ? requests : []).filter(r => r.status === 'rejected').length}
                   </p>
                 </div>
               </div>

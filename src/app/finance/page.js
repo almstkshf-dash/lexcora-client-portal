@@ -237,7 +237,7 @@ export default function FinancePage() {
                 </div>
               </Card>
             ) : (
-              invoices.map((invoice) => (
+              Array.isArray(invoices) && invoices.map((invoice) => (
                 <Card 
                   key={invoice.id}
                   className="group relative border-none shadow-sm hover:shadow-2xl hover:shadow-blue-500/5 transition-all duration-300 rounded-3xl overflow-hidden bg-white dark:bg-slate-900 cursor-pointer"

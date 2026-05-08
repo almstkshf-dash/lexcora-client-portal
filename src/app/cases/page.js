@@ -193,7 +193,7 @@ export default function CasesPage() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 gap-4">
-              {filteredCases.map((caseItem, index) => (
+              {Array.isArray(filteredCases) && filteredCases.map((caseItem, index) => (
                 <Card
                   key={caseItem.id}
                   className="border-0 shadow-md hover:shadow-xl hover:translate-x-1 rtl:hover:-translate-x-1 transition-all duration-300 cursor-pointer group bg-card overflow-hidden"

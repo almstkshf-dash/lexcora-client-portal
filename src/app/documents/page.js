@@ -143,7 +143,7 @@ export default function DocumentsPage() {
               </Card>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {documents.map((doc) => (
+                {Array.isArray(documents) && documents.map((doc) => (
                   <Card
                     key={doc.id}
                     className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 group"
