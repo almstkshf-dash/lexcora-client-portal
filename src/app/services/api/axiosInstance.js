@@ -23,16 +23,22 @@ api.interceptors.request.use(
 );
 
 // On 401 → clear token and redirect to login
-// Only redirect if we actually had a token (i.e. session expired), not on initial unauthenticated load
+// Only redirect if we actually had a token AND the request is not the auth-check endpoint
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (typeof window !== "undefined" && error.response?.status === 401) {
+      const url = error.config?.url || "";
+      const isAuthCheck = url.includes("/client-auth/me");
       const hadToken = !!localStorage.getItem("authToken");
-      localStorage.removeItem("authToken");
-      if (hadToken && !window.location.pathname.includes("/login")) {
-        const currentPath = window.location.pathname;
-        window.location.href = `/login?expired=true&redirect=${encodeURIComponent(currentPath)}`;
+
+      // Only clear + redirect for real session expiry (not the initial /me check)
+      if (!isAuthCheck) {
+        localStorage.removeItem("authToken");
+        if (hadToken && !window.location.pathname.includes("/login")) {
+          const currentPath = window.location.pathname;
+          window.location.href = `/login?expired=true&redirect=${encodeURIComponent(currentPath)}`;
+        }
       }
     }
     return Promise.reject(error);

@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      // Skip the /me call entirely if there's no token stored
       const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
       if (!token) {
         setLoading(false);
@@ -38,9 +37,14 @@ export const AuthProvider = ({ children }) => {
         setUser(response.data);
       }
     } catch (err) {
-      // Token invalid/expired — clear it
-      if (typeof window !== 'undefined') localStorage.removeItem('authToken');
-      setUser(null);
+      // Only clear the token if it's explicitly invalid (401)
+      // Do NOT clear on network errors or cold-start failures
+      const status = err?.response?.status;
+      if (status === 401) {
+        if (typeof window !== 'undefined') localStorage.removeItem('authToken');
+        setUser(null);
+      }
+      // For any other error (500, network), keep the token and stay logged in
     } finally {
       setLoading(false);
     }
