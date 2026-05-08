@@ -85,15 +85,28 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
 
       const response = await loginUser(username, password);
+      const userPayload = response?.user || response?.client || response?.data || response?.clientData || response?.userData;
 
-      if (response && response.success && response.client) {
-        setUser(response.client);
-        saveUser(response.client);
+      if (response && response.success) {
+        if (userPayload) {
+          setUser(userPayload);
+          saveUser(userPayload);
+        } else {
+          // Fallback: fetch current user after obtaining token
+          const profileResponse = await getCurrentUser();
+          const profile = profileResponse?.data || profileResponse?.client || profileResponse?.user;
+          if (profile) {
+            setUser(profile);
+            saveUser(profile);
+          }
+        }
+
         router.push('/');
         return { success: true };
       } else {
-        setError(response.message || 'Login failed');
-        return { success: false, message: response.message };
+        const message = response?.message || 'Login failed';
+        setError(message);
+        return { success: false, message };
       }
     } catch (err) {
       const errorMessage = err.response?.data?.message || err.message || 'Login failed';

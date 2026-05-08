@@ -1,5 +1,28 @@
 import api from './axiosInstance';
 
+const extractToken = (data) => {
+  return (
+    data?.token ||
+    data?.accessToken ||
+    data?.access_token ||
+    data?.data?.token ||
+    data?.data?.accessToken ||
+    data?.data?.access_token ||
+    null
+  );
+};
+
+const extractUser = (data) => {
+  return (
+    data?.client ||
+    data?.user ||
+    data?.data ||
+    data?.clientData ||
+    data?.userData ||
+    null
+  );
+};
+
 /**
  * Login user with username and password
  */
@@ -7,15 +30,24 @@ export const loginUser = async (username, password) => {
   try {
     const response = await api.post('/client-auth/login', {
       username,
-      password
+      password,
     });
-    
-    // Save token to localStorage if login is successful
-    if (response.data.success && response.data.token) {
-      localStorage.setItem('authToken', response.data.token);
+
+    const body = response.data;
+    const token = extractToken(body);
+    const user = extractUser(body);
+
+    if (typeof window !== 'undefined' && token) {
+      localStorage.setItem('authToken', token);
     }
-    
-    return response.data;
+
+    return {
+      success: body?.success ?? false,
+      message: body?.message || null,
+      token,
+      user,
+      raw: body,
+    };
   } catch (error) {
     throw error;
   }
@@ -27,12 +59,12 @@ export const loginUser = async (username, password) => {
 export const logoutUser = async () => {
   try {
     const response = await api.post('/client-auth/logout');
-    
+
     // Clear token from localStorage on logout
     if (typeof window !== 'undefined') {
       localStorage.removeItem('authToken');
     }
-    
+
     return response.data;
   } catch (error) {
     throw error;
