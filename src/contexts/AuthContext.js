@@ -27,11 +27,19 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
+      // Skip the /me call entirely if there's no token stored
+      const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+      if (!token) {
+        setLoading(false);
+        return;
+      }
       const response = await getCurrentUser();
       if (response && response.success && response.data) {
         setUser(response.data);
       }
     } catch (err) {
+      // Token invalid/expired — clear it
+      if (typeof window !== 'undefined') localStorage.removeItem('authToken');
       setUser(null);
     } finally {
       setLoading(false);

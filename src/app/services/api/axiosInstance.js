@@ -1,62 +1,36 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://lexcora-backend.vercel.app/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Request interceptor to add auth token to all requests
+// Attach Bearer token from localStorage on every request
 api.interceptors.request.use(
   (config) => {
-    // Only run in browser environment
-    if (typeof window !== 'undefined') {
-      // Try to get token from cookie first
-      const getCookie = (name) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-      };
-      
-      let token = getCookie('clientAuthToken'); // Check for client auth cookie
-      
-      // Fallback to localStorage if cookie doesn't exist
-      if (!token) {
-        token = localStorage.getItem('authToken');
-      }
-      
-      // Add token to Authorization header if it exists
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("authToken");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
     }
-    
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor to handle auth errors
+// On 401 → clear token and redirect to login
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Only run in browser environment
-    if (typeof window !== 'undefined') {
-      // If we get a 401 unauthorized error, redirect to login
-      if (error.response && error.response.status === 401) {
-        // Clear auth data
-        document.cookie = 'clientAuthToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        localStorage.removeItem('authToken');
-        // Redirect to login if not already there
-        if (!window.location.pathname.includes('/login')) {
-          const currentPath = window.location.pathname;
-          window.location.href = `/login?expired=true&redirect=${encodeURIComponent(currentPath)}`;
-        }
+    if (typeof window !== "undefined" && error.response?.status === 401) {
+      localStorage.removeItem("authToken");
+      if (!window.location.pathname.includes("/login")) {
+        const currentPath = window.location.pathname;
+        window.location.href = `/login?expired=true&redirect=${encodeURIComponent(currentPath)}`;
       }
     }
     return Promise.reject(error);
