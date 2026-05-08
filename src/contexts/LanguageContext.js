@@ -19,14 +19,25 @@ export const LanguageProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Load saved language preference
-    const savedLocale = localStorage.getItem('locale') || 'en';
-    setLocale(savedLocale);
-    setDirection(savedLocale === 'ar' ? 'rtl' : 'ltr');
-    
-    // Apply direction to document
-    document.documentElement.dir = savedLocale === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = savedLocale;
+    try {
+      // Load saved language preference with validation
+      const savedLocale = localStorage.getItem('locale') || 'en';
+      if (savedLocale && typeof savedLocale === 'string' && (savedLocale === 'en' || savedLocale === 'ar')) {
+        setLocale(savedLocale);
+        setDirection(savedLocale === 'ar' ? 'rtl' : 'ltr');
+        
+        // Apply direction to document - with null checks
+        if (typeof document !== 'undefined' && document && document.documentElement) {
+          document.documentElement.dir = savedLocale === 'ar' ? 'rtl' : 'ltr';
+          document.documentElement.lang = savedLocale;
+        }
+      }
+    } catch (error) {
+      console.warn('Error loading language preference:', error);
+      // Fallback to English
+      setLocale('en');
+      setDirection('ltr');
+    }
   }, []);
 
   const changeLanguage = (newLocale) => {

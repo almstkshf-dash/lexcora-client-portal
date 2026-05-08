@@ -25,15 +25,19 @@ export const useTranslation = () => {
       translation = translation?.[k];
     }
 
-    if (!translation) {
-      console.warn(`Translation missing for key: ${key} in locale: ${locale}`);
+    if (!translation || typeof translation !== 'string') {
+      if (translation && typeof translation === 'object') {
+        console.warn(`Translation key resolves to an object, not a string: ${key}`);
+      } else {
+        console.warn(`Translation missing for key: ${key} in locale: ${locale}`);
+      }
       return key;
     }
 
     // Replace placeholders like {name}
-    if (typeof translation === 'string' && Object.keys(values).length > 0) {
-      return translation.replace(/{(\w+)}/g, (match, key) => {
-        return values[key] !== undefined ? values[key] : match;
+    if (Object.keys(values).length > 0) {
+      return translation.replace(/{(\w+)}/g, (match, k) => {
+        return values[k] !== undefined ? values[k] : match;
       });
     }
 

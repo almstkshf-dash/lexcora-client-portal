@@ -41,18 +41,25 @@ export const ThemeProvider = ({ children }) => {
     const root = document.documentElement;
     
     // Remove all theme classes
-    Object.values(themes).forEach(t => {
-      root.classList.remove(t);
-    });
+    const themeValues = Object.values(themes);
+    if (Array.isArray(themeValues)) {
+      themeValues.forEach(t => {
+        if (t && typeof t === 'string') {
+          root.classList.remove(t);
+        }
+      });
+    }
     
     // Add current theme class
-    if (theme !== themes.light) {
+    if (theme !== themes.light && theme) {
       root.classList.add(theme);
     }
     
     // Save theme to localStorage
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    if (theme) {
+      localStorage.setItem("theme", theme);
+    }
+  }, [theme, themes])
 
   const toggleTheme = () => {
     const themeValues = Object.values(themes);

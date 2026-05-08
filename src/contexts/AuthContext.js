@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
   const checkAuth = async () => {
     try {
       const response = await getCurrentUser();
-      if (response.success) {
+      if (response && response.success && response.data) {
         setUser(response.data);
       }
     } catch (err) {
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
       
       const response = await loginUser(username, password);
       
-      if (response.success) {
+      if (response && response.success && response.client) {
         setUser(response.client);
         router.push('/'); // Redirect to home page
         return { success: true };

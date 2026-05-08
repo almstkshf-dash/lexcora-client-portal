@@ -12,11 +12,17 @@ export default function ProtectedRoute({ children }) {
   const pathname = usePathname();
 
   // List of public routes that don't require authentication
-  const publicRoutes = useMemo(() => ['/login'], []);
+  const publicRoutes = useMemo(() => {
+    try {
+      return ['/login'];
+    } catch {
+      return ['/login'];
+    }
+  }, []);
 
   useEffect(() => {
     // If not loading and not authenticated, and not on a public route
-    if (!loading && !isAuthenticated && !publicRoutes.includes(pathname)) {
+    if (!loading && !isAuthenticated && pathname && publicRoutes && Array.isArray(publicRoutes) && !publicRoutes.includes(pathname)) {
       router.push('/login');
     }
   }, [loading, isAuthenticated, pathname, router, publicRoutes]);
