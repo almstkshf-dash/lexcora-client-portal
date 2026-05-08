@@ -53,34 +53,27 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
       if (!token) {
-        setUser(null);
-        clearUser();
         setLoading(false);
         return;
       }
 
-      // If we already have a cached user, mark as loaded immediately
-      // and silently refresh in background
+      // Restore cached user immediately so isAuthenticated is true
       const cached = loadUser();
       if (cached) {
         setUser(cached);
         setLoading(false);
       }
 
-      // Try to refresh user from server
+      // Silently refresh user from server in background
       const response = await getCurrentUser();
       if (response && response.success && response.data) {
         setUser(response.data);
         saveUser(response.data);
       }
     } catch (err) {
-      const status = err?.response?.status;
-      if (status === 401) {
-        // Token is genuinely invalid — clear everything
-        clearUser();
-        setUser(null);
-      }
-      // For other errors (network, 500), keep the cached user
+      // Do NOT clear the token here — the axios interceptor handles
+      // real 401s on protected API calls. checkAuth failing (e.g. cold
+      // start, network error) must never log the user out.
     } finally {
       setLoading(false);
     }
