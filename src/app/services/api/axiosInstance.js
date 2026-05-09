@@ -26,7 +26,29 @@ api.interceptors.request.use(
 // On 401 → clear token and redirect to login
 // Only redirect if we actually had a token AND the request is not the auth-check endpoint
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Architectural Guard: Normalize response structure
+    // We ensure that 'data' is the source of truth, and results/items are mapped back to it.
+    if (response.data && typeof response.data === 'object') {
+      const body = response.data;
+      
+      // If 'data' is missing but 'results' or 'items' exists, normalize it
+      if (body.data === undefined || body.data === null) {
+        if (Array.isArray(body.results)) body.data = body.results;
+        else if (Array.isArray(body.items)) body.data = body.items;
+        else if (Array.isArray(body.projects)) body.data = body.projects; // Specific to projects endpoint
+        else if (Array.isArray(body.cases)) body.data = body.cases;
+      }
+
+      // Final safety check: if we're at a collection endpoint, ensure data is an array
+      const url = response.config?.url || "";
+      const isCollection = !/\/\d+$/.test(url.split('?')[0]); 
+      if (isCollection && body.success && (body.data === undefined || body.data === null)) {
+        body.data = [];
+      }
+    }
+    return response;
+  },
   (error) => {
     if (typeof window !== "undefined" && error.response?.status === 401) {
       const url = error.config?.url || "";
