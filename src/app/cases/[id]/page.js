@@ -173,7 +173,7 @@ export default function CaseDetailsPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                {caseData.sessions && caseData.sessions.length > 0 ? (
+                {Array.isArray(caseData.sessions) && caseData.sessions.length > 0 ? (
                   <div className="space-y-4">
                     {caseData.sessions.map((session, index) => (
                       <Card 
