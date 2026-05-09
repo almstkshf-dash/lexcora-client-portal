@@ -27,24 +27,24 @@ api.interceptors.request.use(
 // Only redirect if we actually had a token AND the request is not the auth-check endpoint
 api.interceptors.response.use(
   (response) => {
-    // Architectural Guard: Normalize response structure
-    // We ensure that 'data' is the source of truth, and results/items are mapped back to it.
+    // Architectural Guard: Strict Normalization
     if (response.data && typeof response.data === 'object') {
       const body = response.data;
       
-      // If 'data' is missing but 'results' or 'items' exists, normalize it
+      // 1. Map known alternative keys to 'data'
       if (body.data === undefined || body.data === null) {
-        if (Array.isArray(body.results)) body.data = body.results;
-        else if (Array.isArray(body.items)) body.data = body.items;
-        else if (Array.isArray(body.projects)) body.data = body.projects; // Specific to projects endpoint
-        else if (Array.isArray(body.cases)) body.data = body.cases;
+        body.data = Array.isArray(body.results) ? body.results : 
+                    Array.isArray(body.items) ? body.items : 
+                    Array.isArray(body.projects) ? body.projects :
+                    Array.isArray(body.cases) ? body.cases :
+                    body.data;
       }
 
-      // Final safety check: if we're at a collection endpoint, ensure data is an array
+      // 2. Force 'data' to be an array for collection endpoints
       const url = response.config?.url || "";
       const isCollection = !/\/\d+$/.test(url.split('?')[0]); 
-      if (isCollection && body.success && (body.data === undefined || body.data === null)) {
-        body.data = [];
+      if (isCollection) {
+        body.data = Array.isArray(body.data) ? body.data : [];
       }
     }
     return response;
